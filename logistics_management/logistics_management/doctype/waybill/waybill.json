@@ -1,0 +1,223 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-07-13 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "company",
+  "column_break_2",
+  "waybill_date",
+  "waybill_status",
+  "cargo_section",
+  "customer",
+  "cargo_description",
+  "weight_quantity",
+  "uom",
+  "column_break_6",
+  "loading_point",
+  "offloading_point",
+  "route",
+  "pod_section",
+  "pod_attachment",
+  "column_break_11",
+  "pod_date",
+  "received_by",
+  "links_section",
+  "freight_trip",
+  "notes_section",
+  "notes",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "WB-.YYYY.-.#####",
+   "default": "WB-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "waybill_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Waybill Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "waybill_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Waybill Status",
+   "options": "Draft\nLoaded\nIn Transit\nDelivered",
+   "default": "Draft",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cargo_section",
+   "fieldtype": "Section Break",
+   "label": "Cargo"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cargo_description",
+   "fieldtype": "Small Text",
+   "label": "Cargo Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "weight_quantity",
+   "fieldtype": "Float",
+   "label": "Weight / Quantity",
+   "reqd": 1,
+   "non_negative": 1,
+   "description": "e.g. 30 Tons or 2 Containers (match the UOM below)."
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "loading_point",
+   "fieldtype": "Data",
+   "label": "Loading Point",
+   "reqd": 1
+  },
+  {
+   "fieldname": "offloading_point",
+   "fieldtype": "Data",
+   "label": "Offloading Point",
+   "reqd": 1
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Freight Route",
+   "options": "Freight Route"
+  },
+  {
+   "fieldname": "pod_section",
+   "fieldtype": "Section Break",
+   "label": "Proof of Delivery (POD)"
+  },
+  {
+   "fieldname": "pod_attachment",
+   "fieldtype": "Attach",
+   "label": "POD Attachment",
+   "description": "Upload the stamped / signed delivery copy."
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pod_date",
+   "fieldtype": "Date",
+   "label": "POD Date"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "links_section",
+   "fieldtype": "Section Break",
+   "label": "Trip Link"
+  },
+  {
+   "fieldname": "freight_trip",
+   "fieldtype": "Link",
+   "label": "Freight Trip",
+   "options": "Freight Trip",
+   "read_only": 1,
+   "description": "Auto-filled when this Waybill is attached to a Freight Trip."
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Waybill",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-07-13 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Logistics Management",
+ "name": "Waybill",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "customer,waybill_status,route",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {"color": "Orange", "title": "Draft"},
+  {"color": "Yellow", "title": "Loaded"},
+  {"color": "Blue", "title": "In Transit"},
+  {"color": "Green", "title": "Delivered"}
+ ],
+ "title_field": "customer",
+ "track_changes": 1
+}

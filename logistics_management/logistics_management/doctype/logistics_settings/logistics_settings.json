@@ -1,0 +1,209 @@
+{
+ "actions": [],
+ "autoname": "format:Logistics Settings",
+ "creation": "2026-07-13 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company_section",
+  "company",
+  "accounting_section",
+  "freight_income_item",
+  "freight_income_account",
+  "column_break_acc1",
+  "truck_hire_item",
+  "default_cost_center",
+  "expense_accounts_section",
+  "fuel_account",
+  "allowance_account",
+  "fines_tolls_account",
+  "column_break_acc2",
+  "repairs_account",
+  "offloading_loading_account",
+  "truck_hire_account",
+  "other_expense_account",
+  "payment_accounts_section",
+  "default_payable_account",
+  "default_bank_account",
+  "column_break_acc3",
+  "default_cash_account",
+  "controls_section",
+  "allow_zero_revenue_trips",
+  "warn_negative_margin",
+  "auto_submit_accounting"
+ ],
+ "fields": [
+  {
+   "fieldname": "company_section",
+   "fieldtype": "Section Break",
+   "label": "Defaults"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Default Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "accounting_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting Defaults"
+  },
+  {
+   "fieldname": "freight_income_item",
+   "fieldtype": "Link",
+   "label": "Freight Income Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "freight_income_account",
+   "fieldtype": "Link",
+   "label": "Freight Income Account",
+   "options": "Account",
+   "description": "Income head used on the Sales Invoice."
+  },
+  {
+   "fieldname": "column_break_acc1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "truck_hire_item",
+   "fieldtype": "Link",
+   "label": "Truck Hire Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "default_cost_center",
+   "fieldtype": "Link",
+   "label": "Default Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "expense_accounts_section",
+   "fieldtype": "Section Break",
+   "label": "Expense Accounts (per Trip Expense category)"
+  },
+  {
+   "fieldname": "fuel_account",
+   "fieldtype": "Link",
+   "label": "Fuel Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "allowance_account",
+   "fieldtype": "Link",
+   "label": "Driver Allowance Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "fines_tolls_account",
+   "fieldtype": "Link",
+   "label": "Fines & Tolls Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_acc2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "repairs_account",
+   "fieldtype": "Link",
+   "label": "En-route Repairs Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "offloading_loading_account",
+   "fieldtype": "Link",
+   "label": "Loading / Offloading Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "truck_hire_account",
+   "fieldtype": "Link",
+   "label": "Truck Hire Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "other_expense_account",
+   "fieldtype": "Link",
+   "label": "Other Expense Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "payment_accounts_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Accounts"
+  },
+  {
+   "fieldname": "default_payable_account",
+   "fieldtype": "Link",
+   "label": "Default Payable Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "default_bank_account",
+   "fieldtype": "Link",
+   "label": "Default Bank Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_acc3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_cash_account",
+   "fieldtype": "Link",
+   "label": "Default Cash Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "controls_section",
+   "fieldtype": "Section Break",
+   "label": "Controls"
+  },
+  {
+   "fieldname": "allow_zero_revenue_trips",
+   "fieldtype": "Check",
+   "label": "Allow trips with zero revenue to be submitted",
+   "default": 0
+  },
+  {
+   "fieldname": "warn_negative_margin",
+   "fieldtype": "Check",
+   "label": "Warn on negative profit margin",
+   "default": 1
+  },
+  {
+   "fieldname": "auto_submit_accounting",
+   "fieldtype": "Check",
+   "label": "Auto-submit accounting vouchers created from trips",
+   "description": "If unchecked, vouchers are created in Draft for review.",
+   "default": 0
+  }
+ ],
+ "links": [],
+ "modified": "2026-07-13 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Logistics Management",
+ "name": "Logistics Settings",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

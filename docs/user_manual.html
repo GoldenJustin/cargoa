@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistics Management — User Manual</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2a36; background: #f4f6f9; margin: 0; line-height: 1.6;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; background: #fff; padding: 48px 56px 80px; }
+  .hero {
+    background: linear-gradient(135deg, #1b6ca8, #2980b9);
+    color: #fff; padding: 56px 56px; margin: -48px -56px 40px; border-radius: 0 0 18px 18px;
+  }
+  .hero h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: -.5px; }
+  .hero p { margin: 0; opacity: .92; font-size: 16px; }
+  .badge { display:inline-block; background: rgba(255,255,255,.18); padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 14px; }
+  h2 { color: #1b6ca8; border-bottom: 2px solid #e6eef5; padding-bottom: 8px; margin-top: 44px; font-size: 24px; }
+  h3 { color: #243447; margin-top: 30px; font-size: 18px; }
+  a { color: #1b6ca8; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid #dce4ec; padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: #eef4fa; color: #243447; }
+  tr:nth-child(even) td { background: #fafcfe; }
+  code { background: #eef2f6; padding: 2px 6px; border-radius: 4px; font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; color: #b5316b; }
+  pre { background: #1f2a36; color: #e6edf3; padding: 16px 18px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  pre code { background: none; color: inherit; padding: 0; }
+  .note { background: #fff8e1; border-left: 4px solid #f0b400; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .tip  { background: #e8f7ef; border-left: 4px solid #1aa260; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .warn { background: #fdecea; border-left: 4px solid #d64545; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .toc { background: #f7fafc; border: 1px solid #e3eaf0; border-radius: 8px; padding: 18px 24px; columns: 2; font-size: 14px; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .flow { background:#fbfdff; border:1px solid #e3eaf0; border-radius:10px; padding:18px; margin:16px 0; }
+  .pill { display:inline-block; background:#1b6ca8; color:#fff; border-radius:6px; padding:3px 10px; font-size:12px; margin:2px; }
+  .pill.green{background:#1aa260;} .pill.amber{background:#f0a500;} .pill.red{background:#d64545;} .pill.grey{background:#6b7a8a;}
+  .diagram { background:#fff; border:1px solid #e3eaf0; border-radius:10px; padding:14px; margin:18px 0; text-align:center; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #e3eaf0; color:#6b7a8a; font-size: 13px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>🚚 Logistics Management</h1>
+    <p>A complete Hub‑and‑Spoke freight &amp; logistics app for Frappe / ERPNext — from the weighbridge to the bank.</p>
+    <span class="badge">Frappe v14 / v15</span>
+    <span class="badge">ERPNext</span>
+    <span class="badge">Version 1.0.0</span>
+  </div>
+
+  <p>The <b>Freight Trip</b> is the Hub. <b>Waybills</b>, <b>Trip Expenses</b> and <b>Revenue</b> are the spokes. Every shilling and every litre rolls up to the Freight Trip to give you a <b>real‑time Profit &amp; Loss for each journey</b> — fully wired into the ERPNext accounting books.</p>
+
+  <div class="toc">
+    <b>Contents</b><br>
+    <a href="#arch">1. Architecture (Hub &amp; Spoke)</a><br>
+    <a href="#added">2. What was added</a><br>
+    <a href="#install">3. Installation</a><br>
+    <a href="#setup">4. First‑time setup</a><br>
+    <a href="#master">5. Master data</a><br>
+    <a href="#workflow">6. Daily workflow</a><br>
+    <a href="#pl">7. Cost roll‑up &amp; P&amp;L</a><br>
+    <a href="#theft">8. Anti‑theft control</a><br>
+    <a href="#money">9. 💰 Money‑Flow chain</a><br>
+    <a href="#settle">10. Trip Settlement</a><br>
+    <a href="#roles">11. Roles &amp; permissions</a><br>
+    <a href="#faq">12. FAQ</a>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <h2 id="arch">1. Architecture (Hub &amp; Spoke)</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 760 360" width="100%" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial">
+      <defs>
+        <linearGradient id="hub" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2980b9"/><stop offset="1" stop-color="#1b6ca8"/>
+        </linearGradient>
+      </defs>
+      <!-- Hub -->
+      <rect x="250" y="120" width="260" height="120" rx="14" fill="url(#hub)"/>
+      <text x="380" y="152" fill="#fff" font-size="18" font-weight="bold" text-anchor="middle">FREIGHT TRIP (HUB)</text>
+      <text x="380" y="176" fill="#dbeafe" font-size="12" text-anchor="middle">Route · Vehicle(s) · Driver · Waybill</text>
+      <text x="380" y="198" fill="#ffe98a" font-size="13" text-anchor="middle">Revenue − Cost = Profit &amp; Margin (live)</text>
+      <text x="380" y="220" fill="#dbeafe" font-size="11" text-anchor="middle">the launch point of the whole money-flow chain</text>
+
+      <!-- Spokes -->
+      <rect x="20"  y="40"  width="180" height="60" rx="10" fill="#eef4fa" stroke="#1b6ca8"/>
+      <text x="110" y="76" fill="#1b6ca8" font-size="14" font-weight="bold" text-anchor="middle">WAYBILL</text>
+      <text x="110" y="92" fill="#6b7a8a" font-size="11" text-anchor="middle">cargo · weight · POD</text>
+
+      <rect x="560" y="40"  width="180" height="60" rx="10" fill="#eef4fa" stroke="#1b6ca8"/>
+      <text x="650" y="76" fill="#1b6ca8" font-size="14" font-weight="bold" text-anchor="middle">SALES INVOICE</text>
+      <text x="650" y="92" fill="#6b7a8a" font-size="11" text-anchor="middle">→ Payment Entry (receive)</text>
+
+      <rect x="20"  y="260" width="180" height="60" rx="10" fill="#eef4fa" stroke="#1aa260"/>
+      <text x="110" y="296" fill="#1aa260" font-size="14" font-weight="bold" text-anchor="middle">TRIP EXPENSE</text>
+      <text x="110" y="312" fill="#6b7a8a" font-size="11" text-anchor="middle">fuel · posho · fines → Journal Entry</text>
+
+      <rect x="560" y="260" width="180" height="60" rx="10" fill="#eef4fa" stroke="#f0a500"/>
+      <text x="650" y="296" fill="#b07a00" font-size="14" font-weight="bold" text-anchor="middle">HIRED TRUCK / DRIVER</text>
+      <text x="650" y="312" fill="#6b7a8a" font-size="11" text-anchor="middle">Purchase Inv / Payment Entry</text>
+
+      <!-- connectors -->
+      <g stroke="#9bb3c7" stroke-width="2" fill="none" marker-end="url(#arr)">
+        <line x1="200" y1="80"  x2="250" y2="150"/>
+        <line x1="510" y1="150" x2="560" y2="80"/>
+        <line x1="200" y1="290" x2="250" y2="210"/>
+        <line x1="510" y1="210" x2="560" y2="290"/>
+      </g>
+      <defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#9bb3c7"/></marker></defs>
+    </svg>
+  </div>
+  <p>All spokes feed the Hub; the Hub feeds the accounting chain.</p>
+
+  <!-- ADDED -->
+  <h2 id="added">2. What was added beyond the original brief</h2>
+  <p>Your spec defined 4 doctypes (Freight Route, Waybill, Trip Expense, Freight Trip). To make a <b>full logistics business</b> and wire in the money flow, the app adds:</p>
+  <ul>
+    <li><b>Driver</b> master — <i>Own Employee</i> (links to Employee) <u>or</u> <i>Hired Contractor</i> (links to a Supplier).</li>
+    <li><b>Transport Vehicle</b> master — <i>Owned</i> <u>or</u> <i>Hired</i> (owner = Supplier); covers <b>both Prime Movers and Trailers</b>.</li>
+    <li><b>Logistics Settings</b> — maps every logistics concept to your Chart of Accounts.</li>
+    <li><b>Trip Settlement</b> — reconciliation of accrual profit vs. actual cash.</li>
+    <li><b>Freight Trip</b> link auto‑added to <b>Sales/Purchase Invoice, Journal Entry, Payment Entry</b>.</li>
+    <li>Roles <b>Logistics Manager</b> &amp; <b>Logistics User</b>, and a <b>Logistics</b> workspace.</li>
+  </ul>
+
+  <!-- INSTALL -->
+  <h2 id="install">3. Installation</h2>
+  <pre><code># from your bench folder
+cd ~/frappe-bench/apps
+# copy/clone the 'logistics_management' folder here
+
+bench pip install -e apps/logistics_management
+bench --site &lt;your-site&gt; install-app logistics_management
+bench --site &lt;your-site&gt; migrate</code></pre>
+  <p>On install the app automatically creates the roles, grants permissions, adds the accounting link fields, seeds <b>Logistics Settings</b> from your company defaults, and creates the <i>Freight Charges</i> &amp; <i>Truck Hire</i> items.</p>
+
+  <!-- SETUP -->
+  <h2 id="setup">4. First‑time setup</h2>
+  <p>Open <b>Logistics → Logistics Settings</b> and confirm the account mappings (these drive all auto‑posting):</p>
+  <table>
+    <tr><th>Section</th><th>Fields</th><th>Controls</th></tr>
+    <tr><td>Defaults</td><td>Company, Cost Center</td><td>Where trips &amp; vouchers are posted</td></tr>
+    <tr><td>Accounting</td><td>Freight Income Item/Account, Truck Hire Item</td><td>Lines on the Sales / Purchase Invoice</td></tr>
+    <tr><td>Expense Accounts</td><td>Fuel, Allowance, Fines &amp; Tolls, Repairs, Loading/Offloading, Truck Hire, Other</td><td>Ledger each Trip Expense is debited to</td></tr>
+    <tr><td>Payment Accounts</td><td>Payable, Bank, Cash</td><td>Credit side of JEs &amp; source of Payments</td></tr>
+    <tr><td>Controls</td><td>Auto‑submit accounting, Warn negative margin, Allow zero‑revenue</td><td>Behaviour toggles</td></tr>
+  </table>
+  <div class="tip">💡 The installer pre‑fills these from your Company defaults — just review and adjust.</div>
+
+  <!-- MASTER -->
+  <h2 id="master">5. Master data</h2>
+
+  <h3>5.1 Freight Route (benchmark)</h3>
+  <p>Examples: <code>Dar es Salaam - Mwanza</code>, <code>Mlandizi - Dodoma</code>.</p>
+  <ul>
+    <li><b>Standard Fuel Allocation (L)</b> — the benchmark; trips drawing more are flagged for <b>fuel theft</b>.</li>
+    <li><b>Standard Driver Allowance</b> — expected posho; trips claiming more are flagged.</li>
+  </ul>
+
+  <h3>5.2 Driver — Own Employee <i>or</i> Hired Contractor</h3>
+  <table>
+    <tr><th>Type</th><th>What to fill</th><th>How they get paid</th></tr>
+    <tr><td>Own Employee</td><td>Linked Employee</td><td>ERPNext Payroll (Salary Slip)</td></tr>
+    <tr><td>Hired Contractor</td><td>Linked Supplier</td><td>Payment Entry (one click from the trip)</td></tr>
+  </table>
+
+  <h3>5.3 Transport Vehicle — Owned <i>or</i> Hired</h3>
+  <table>
+    <tr><th>Type</th><th>What to fill</th><th>Cost handling</th></tr>
+    <tr><td>Owned</td><td>—</td><td>Only running costs (fuel, service)</td></tr>
+    <tr><td>Hired</td><td>Owner as Supplier</td><td>Set Agreed Truck Hire Rate on trip → Purchase Invoice to owner</td></tr>
+  </table>
+  <p>Set <b>Vehicle Type</b> = <i>Prime Mover</i> for tractors, <i>Trailer</i> for trailers — both link into the Freight Trip.</p>
+
+  <!-- WORKFLOW -->
+  <h2 id="workflow">6. Daily workflow (step by step)</h2>
+  <p><b>Example:</b> 30 Tons of cement for <b>Twiga Cement</b>, Dar → Mwanza, in a <b>hired Scania</b> owned by <i>Mzee Trans Ltd</i>, driven by hired contractor <i>Juma</i>.</p>
+
+  <h3>Step 1 — Create the Waybill</h3>
+  <p>Customer: Twiga Cement · Cargo: Cement 30 Ton · Loading: Dar es Salaam · Offloading: Mwanza · Status: Loaded. Save → <b>Submit</b>.</p>
+
+  <h3>Step 2 — Create the Freight Trip (the Hub)</h3>
+  <p>Route: Dar‑Mwanza (distance/fuel/allowance auto‑fill) · Prime Mover: the Scania (Ownership = Hired) · Driver: Juma (Hired Contractor) · Waybill: from Step 1 (Customer/Cargo/Weight auto‑fill) · Agreed Rate/Ton: <b>TZS 120,000</b>.</p>
+  <div class="note">➡️ Total Revenue auto‑calculates = 30 × 120,000 = <b>TZS 3,600,000</b>.</div>
+
+  <h3>Step 3 — Log costs as they happen (Trip Expenses)</h3>
+  <table>
+    <tr><th>Expense</th><th>Category</th><th>Qty (L)</th><th>Amount</th><th>Paid By</th><th>Supplier</th></tr>
+    <tr><td>Diesel @ Morogoro</td><td>Fuel</td><td>250</td><td>1,000,000</td><td>Company</td><td>PUMA Energy</td></tr>
+    <tr><td>Driver food</td><td>Driver Allowance</td><td>–</td><td>150,000</td><td>Driver Pocket</td><td>–</td></tr>
+    <tr><td>Mikumi weighbridge</td><td>Weighbridge Fine</td><td>–</td><td>30,000</td><td>Company</td><td>–</td></tr>
+    <tr><td>Tanga toll gate</td><td>Toll Gate</td><td>–</td><td>5,000</td><td>Driver Pocket</td><td>–</td></tr>
+    <tr><td>Burst tyre</td><td>En‑route Repair</td><td>–</td><td>220,000</td><td>Company</td><td>TyrePro Garage</td></tr>
+  </table>
+  <p>On <b>Submit</b>, each Company‑paid expense <b>auto‑creates a Journal Entry</b>, and the trip's cost &amp; profit figures refresh instantly.</p>
+
+  <h3>Step 4 — Submit the Freight Trip</h3>
+  <p>Review the live P&amp;L → <b>Submit</b> (status → Completed). The <b>Create ▾</b> menu now offers the accounting actions.</p>
+
+  <h3>Step 5 — Run the accounting chain</h3>
+  <p>See <a href="#money">§9</a>. One‑click to bill the customer, pay the truck owner, pay the driver.</p>
+
+  <h3>Step 6 — Close with a Trip Settlement</h3>
+  <p>Reconcile cash received vs. cash paid (see <a href="#settle">§10</a>).</p>
+
+  <!-- P&L -->
+  <h2 id="pl">7. Cost roll‑up &amp; real‑time P&amp;L</h2>
+  <p>The Freight Trip groups every submitted Trip Expense into read‑only buckets:</p>
+  <table>
+    <tr><th>Category entered</th><th>Rolls into trip field</th></tr>
+    <tr><td>Fuel</td><td>Total Fuel Cost (+ actual litres)</td></tr>
+    <tr><td>Driver Allowance (Posho)</td><td>Total Allowances</td></tr>
+    <tr><td>Weighbridge Fine, Toll Gate</td><td>Total Fines &amp; Tolls</td></tr>
+    <tr><td>En‑route Repair</td><td>Total En‑route Repairs</td></tr>
+    <tr><td>Offloading Fee, Loading Fee</td><td>Total Loading / Offloading</td></tr>
+    <tr><td>Truck Hire</td><td>Total Truck Hire</td></tr>
+    <tr><td>Other</td><td>Total Other</td></tr>
+  </table>
+  <pre><code>Total Trip Cost   = sum of all buckets
+Trip Profit       = Total Revenue − Total Trip Cost
+Profit Margin %   = Trip Profit ÷ Total Revenue × 100
+Fuel Variance (L) = Actual Fuel Drawn − Standard Fuel Allocation</code></pre>
+  <p>These recalculate every time a Trip Expense is submitted/cancelled — <b>even after the trip is already submitted</b>.</p>
+
+  <!-- THEFT -->
+  <h2 id="theft">8. Anti‑theft &amp; cost control</h2>
+  <p>On save, the trip warns in <span class="pill amber">orange</span>/<span class="pill red">red</span> when:</p>
+  <ul>
+    <li>⛽ Fuel drawn exceeds the route's standard allocation (possible siphoning),</li>
+    <li>💵 Driver allowances exceed the route's standard posho,</li>
+    <li>📉 The trip has a negative profit margin.</li>
+  </ul>
+  <p>Realistic benchmarks on each Freight Route turn these into automatic trip‑audits.</p>
+
+  <!-- MONEY FLOW -->
+  <h2 id="money">9. 💰 The Accounting / Money‑Flow chain</h2>
+  <p>Everything below is created with <b>one click</b> from the submitted Freight Trip's <b>Create ▾</b> menu, and <b>every voucher is stamped with the Freight Trip</b> so you can trace money end‑to‑end.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 760 420" width="100%" height="420" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial">
+      <!-- Money IN -->
+      <rect x="30" y="20" width="700" height="110" rx="10" fill="#eef7f0" stroke="#1aa260"/>
+      <text x="50" y="44" fill="#1aa260" font-size="15" font-weight="bold">MONEY IN  (Revenue)</text>
+      <rect x="60" y="58" width="150" height="46" rx="8" fill="#1aa260"/>
+      <text x="135" y="86" fill="#fff" font-size="13" font-weight="bold" text-anchor="middle">Freight Trip</text>
+      <line x1="210" y1="81" x2="320" y2="81" stroke="#1aa260" stroke-width="2" marker-end="url(#g)"/>
+      <rect x="320" y="58" width="170" height="46" rx="8" fill="#fff" stroke="#1aa260"/>
+      <text x="405" y="78" fill="#1aa260" font-size="12" font-weight="bold" text-anchor="middle">SALES INVOICE</text>
+      <text x="405" y="94" fill="#6b7a8a" font-size="10" text-anchor="middle">Debtors Dr / Sales Cr</text>
+      <line x1="490" y1="81" x2="600" y2="81" stroke="#1aa260" stroke-width="2" marker-end="url(#g)"/>
+      <rect x="600" y="58" width="120" height="46" rx="8" fill="#fff" stroke="#1aa260"/>
+      <text x="660" y="78" fill="#1aa260" font-size="12" font-weight="bold" text-anchor="middle">PAYMENT</text>
+      <text x="660" y="94" fill="#6b7a8a" font-size="10" text-anchor="middle">Receive → Bank</text>
+
+      <!-- Money OUT - truck -->
+      <rect x="30" y="150" width="700" height="110" rx="10" fill="#fff6e9" stroke="#f0a500"/>
+      <text x="50" y="174" fill="#b07a00" font-size="15" font-weight="bold">MONEY OUT — Hired Truck</text>
+      <rect x="60" y="188" width="150" height="46" rx="8" fill="#f0a500"/>
+      <text x="135" y="216" fill="#fff" font-size="13" font-weight="bold" text-anchor="middle">Freight Trip</text>
+      <line x1="210" y1="211" x2="320" y2="211" stroke="#f0a500" stroke-width="2" marker-end="url(#y)"/>
+      <rect x="320" y="188" width="170" height="46" rx="8" fill="#fff" stroke="#f0a500"/>
+      <text x="405" y="208" fill="#b07a00" font-size="12" font-weight="bold" text-anchor="middle">PURCHASE INVOICE</text>
+      <text x="405" y="224" fill="#6b7a8a" font-size="10" text-anchor="middle">to truck owner (Supplier)</text>
+      <line x1="490" y1="211" x2="600" y2="211" stroke="#f0a500" stroke-width="2" marker-end="url(#y)"/>
+      <rect x="600" y="188" width="120" height="46" rx="8" fill="#fff" stroke="#f0a500"/>
+      <text x="660" y="208" fill="#b07a00" font-size="12" font-weight="bold" text-anchor="middle">PAYMENT</text>
+      <text x="660" y="224" fill="#6b7a8a" font-size="10" text-anchor="middle">Pay → Owner</text>
+
+      <!-- Money OUT - driver -->
+      <rect x="30" y="280" width="340" height="120" rx="10" fill="#fdecea" stroke="#d64545"/>
+      <text x="50" y="304" fill="#d64545" font-size="15" font-weight="bold">Hired Driver</text>
+      <rect x="55" y="320" width="120" height="44" rx="8" fill="#d64545"/>
+      <text x="115" y="346" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">Freight Trip</text>
+      <line x1="175" y1="342" x2="245" y2="342" stroke="#d64545" stroke-width="2" marker-end="url(#r)"/>
+      <rect x="245" y="320" width="110" height="44" rx="8" fill="#fff" stroke="#d64545"/>
+      <text x="300" y="340" fill="#d64545" font-size="11" font-weight="bold" text-anchor="middle">PAYMENT</text>
+      <text x="300" y="356" fill="#6b7a8a" font-size="10" text-anchor="middle">to Driver Supplier</text>
+      <text x="200" y="386" fill="#6b7a8a" font-size="11" text-anchor="middle">Own‑employee drivers → Payroll</text>
+
+      <!-- Expenses -->
+      <rect x="390" y="280" width="340" height="120" rx="10" fill="#eef4fa" stroke="#1b6ca8"/>
+      <text x="410" y="304" fill="#1b6ca8" font-size="15" font-weight="bold">Running Costs</text>
+      <rect x="415" y="320" width="130" height="44" rx="8" fill="#1b6ca8"/>
+      <text x="480" y="346" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">Trip Expense</text>
+      <line x1="545" y1="342" x2="600" y2="342" stroke="#1b6ca8" stroke-width="2" marker-end="url(#b)"/>
+      <rect x="600" y="320" width="120" height="44" rx="8" fill="#fff" stroke="#1b6ca8"/>
+      <text x="660" y="340" fill="#1b6ca8" font-size="11" font-weight="bold" text-anchor="middle">JOURNAL ENTRY</text>
+      <text x="660" y="356" fill="#6b7a8a" font-size="10" text-anchor="middle">auto on submit</text>
+      <text x="560" y="386" fill="#6b7a8a" font-size="11" text-anchor="middle">Dr Expense / Cr Payable or Bank</text>
+
+      <defs>
+        <marker id="g" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1aa260"/></marker>
+        <marker id="y" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f0a500"/></marker>
+        <marker id="r" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#d64545"/></marker>
+        <marker id="b" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1b6ca8"/></marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h3>The invoice → payment chain, made explicit</h3>
+  <div class="flow">
+    <p><b>REVENUE — collecting from the customer</b></p>
+    <ol>
+      <li>Submitted trip → <b>Create ▾ → Sales Invoice</b> → draft SI for <code>Total Revenue</code>, linked to the trip.</li>
+      <li>Submit the SI → books <b>Debtors Dr / Sales Income Cr</b>.</li>
+      <li>Customer pays → open the SI → <b>Create ▸ Payment</b> → <b>Payment Entry (Receive)</b>. Invoice now <b>Paid</b>.</li>
+    </ol>
+    <p>Both SI and Payment Entry carry the <b>Freight Trip</b> reference.</p>
+  </div>
+
+  <div class="flow">
+    <p><b>HIRED TRUCK — paying the owner</b></p>
+    <ol>
+      <li>Set <b>Agreed Truck Hire Rate</b> on the trip (only when truck = Hired).</li>
+      <li><b>Create ▾ → Truck Hire Invoice</b> → draft <b>Purchase Invoice</b> to the owner (Supplier).</li>
+      <li>Submit it (Expense Dr / Creditor Cr).</li>
+      <li>Pay owner: PI → <b>Create ▸ Payment</b> → Payment Entry (Pay).</li>
+    </ol>
+  </div>
+
+  <div class="flow">
+    <p><b>HIRED DRIVER — paying posho/allowance</b></p>
+    <ol>
+      <li>Driver Type = <i>Hired Contractor</i> with a linked Supplier.</li>
+      <li><b>Create ▾ → Pay Driver</b> → Payment Entry (Pay) for the trip's <code>Total Allowances</code>.</li>
+    </ol>
+  </div>
+
+  <div class="flow">
+    <p><b>RUNNING COSTS — auto‑posted</b></p>
+    <p>Each Company‑paid <b>Trip Expense</b> auto‑creates a <b>Journal Entry</b> on submit: <b>Dr</b> the category's expense account, <b>Cr</b> Accounts Payable (if a Supplier is named) or Bank/Cash.</p>
+  </div>
+
+  <div class="tip">💡 <b>Books stay balanced.</b> Every operation above is standard double‑entry. Logistics Settings only decides <i>which account</i> each side hits — nothing is posted "off‑book". The trip's P&amp;L matches the General Ledger.</div>
+
+  <!-- SETTLEMENT -->
+  <h2 id="settle">10. Trip Settlement — closing a journey</h2>
+  <p><b>Logistics → Trip Settlement → Add</b>, pick the Freight Trip. The summary pulls in automatically.</p>
+  <ul>
+    <li>Enter <b>Amount Actually Received</b> (cash from customer) and <b>Amounts Paid Out</b>.</li>
+    <li>It computes <b>Customer Balance Outstanding</b>, <b>Costs Still Outstanding</b>, <b>Net Profit (Accrual)</b> and <b>Net Cash Position</b>.</li>
+    <li>Submit → status <b>Settled</b> — the journey is reconciled &amp; locked.</li>
+  </ul>
+  <p>It's the one screen that shows the <i>whole invoice→payment chain</i> and the cash reality of the trip.</p>
+
+  <!-- ROLES -->
+  <h2 id="roles">11. Roles &amp; permissions</h2>
+  <table>
+    <tr><th>Role</th><th>Can do</th></tr>
+    <tr><td>Logistics Manager</td><td>Full access incl. settings, delete, amend</td></tr>
+    <tr><td>Logistics User</td><td>Create/edit/submit trips, waybills, expenses; read‑only settings; no delete/amend</td></tr>
+    <tr><td>System Manager</td><td>Everything (automatic)</td></tr>
+    <tr><td>Accounts roles</td><td>Access to the invoices/entries the trips generate</td></tr>
+  </table>
+
+  <!-- FAQ -->
+  <h2 id="faq">12. FAQ</h2>
+  <p><b>"Create ▸ Sales Invoice" doesn't appear?</b> — Only on a <i>submitted</i> trip with a Customer and Revenue &gt; 0.</p>
+  <p><b>No Journal Entry created?</b> — Expense must be <i>Paid By = Company</i> and the matching accounts must be set in Logistics Settings.</p>
+  <p><b>Hire/driver buttons missing?</b> — They show only when the Prime Mover is <i>Hired</i> or the Driver is a <i>Hired Contractor</i> with a linked Supplier.</p>
+  <p><b>Revenue field read‑only?</b> — It auto‑computes from Weight × Rate. Tick <b>Flat Rate</b> to type it manually.</p>
+  <p><b>Costs didn't refresh?</b> — Click <b>Recalculate P&amp;L</b> on the trip.</p>
+  <p><b>Currency?</b> — Company default (e.g. TZS); fully multi‑currency via standard settings.</p>
+
+  <div class="footer">
+    Logistics Management · v1.0.0 · MIT License<br>
+    Built for operators who move goods by road and want every trip's profit — and every shilling — accounted for, from the weighbridge to the bank.
+  </div>
+
+</div>
+</body>
+</html>
