@@ -1,9 +1,11 @@
 {
  "actions": [],
- "autoname": "format:Logistics Settings",
  "creation": "2026-07-13 00:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
+ "issingle": 1,
+ "editable_grid": 1,
+ "links": [],
  "field_order": [
   "company_section",
   "company",
@@ -30,7 +32,8 @@
   "controls_section",
   "allow_zero_revenue_trips",
   "warn_negative_margin",
-  "auto_submit_accounting"
+  "auto_submit_accounting",
+  "auto_create_accounting"
  ],
  "fields": [
   {
@@ -179,14 +182,19 @@
    "label": "Auto-submit accounting vouchers created from trips",
    "description": "If unchecked, vouchers are created in Draft for review.",
    "default": 0
+  },
+  {
+   "fieldname": "auto_create_accounting",
+   "fieldtype": "Check",
+   "label": "Auto-create accounting vouchers when a trip is submitted",
+   "description": "Sales Invoice, Purchase Invoice (hired truck), and Driver Payment are created automatically on trip submit.",
+   "default": 1
   }
  ],
- "links": [],
  "modified": "2026-07-13 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Logistics Management",
  "name": "Logistics Settings",
- "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

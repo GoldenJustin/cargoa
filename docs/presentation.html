@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistics Management — User Presentation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1923; overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 60px 80px; color: #e8eef3;
+  }
+  .slide.active { display: flex; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+  /* backgrounds per section */
+  .bg-hero { background: linear-gradient(135deg, #0d47a1, #1565c0, #0277bd); }
+  .bg-dark { background: linear-gradient(135deg, #1a237e, #283593); }
+  .bg-green { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
+  .bg-amber { background: linear-gradient(135deg, #e65100, #ef6c00); }
+  .bg-teal { background: linear-gradient(135deg, #004d40, #00695c); }
+  .bg-purple { background: linear-gradient(135deg, #4a148c, #6a1b9a); }
+
+  h1 { font-size: 52px; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  h2 { font-size: 38px; margin-bottom: 28px; text-align: center; }
+  h3 { font-size: 22px; margin: 14px 0 6px; color: #81d4fa; }
+  .sub { font-size: 20px; opacity: .85; margin-bottom: 30px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; max-width: 1000px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; width: 100%; max-width: 1100px; }
+
+  .card {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+    border-radius: 12px; padding: 20px 24px; backdrop-filter: blur(4px);
+  }
+  .card h3 { color: #80cbc4; margin-top: 0; }
+  .card p, .card li { font-size: 15px; line-height: 1.6; opacity: .9; }
+  .card ul { padding-left: 18px; }
+  .card .num { font-size: 42px; font-weight: 800; color: #ffd54f; display: block; margin-bottom: 6px; }
+
+  table { width: 100%; max-width: 1000px; border-collapse: collapse; font-size: 15px; }
+  th { background: rgba(255,255,255,.12); padding: 10px 14px; text-align: left; border-radius: 6px 6px 0 0; }
+  td { padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  tr:hover td { background: rgba(255,255,255,.04); }
+
+  .flow-box {
+    background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.2);
+    border-radius: 12px; padding: 16px 24px; text-align: center; font-size: 15px;
+    margin: 4px; display: inline-block; min-width: 160px;
+  }
+  .flow-arrow { font-size: 28px; margin: 0 6px; opacity: .5; }
+  .flow-row { display: flex; align-items: center; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
+
+  .badge { display: inline-block; background: rgba(255,255,255,.15); padding: 4px 14px; border-radius: 20px; font-size: 13px; margin: 4px; }
+
+  .controls { position: fixed; bottom: 20px; right: 30px; display: flex; gap: 12px; z-index: 100; }
+  .controls button {
+    background: rgba(0,0,0,.4); color: #fff; border: 1px solid rgba(255,255,255,.3);
+    border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer;
+    transition: background .2s;
+  }
+  .controls button:hover { background: rgba(255,255,255,.2); }
+  .counter { position: fixed; bottom: 28px; left: 30px; color: rgba(255,255,255,.5); font-size: 14px; z-index: 100; }
+
+  .footer-note { position: absolute; bottom: 16px; width: 100%; text-align: center; font-size: 12px; opacity: .4; }
+
+  code { background: rgba(0,0,0,.3); padding: 2px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #ffd54f; }
+  .step-num { display: inline-block; background: #ffd54f; color: #1a237e; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; font-weight: bold; font-size: 16px; margin-right: 10px; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: Title -->
+<div class="slide bg-hero active" data-slide="1">
+  <div style="font-size: 72px; margin-bottom: 10px;">🚚</div>
+  <h1>Logistics Management</h1>
+  <p class="sub">Hub-and-Spoke Freight & Logistics for ERPNext</p>
+  <div style="margin-top: 10px;">
+    <span class="badge">Real-time Trip P&L</span>
+    <span class="badge">Full Accounting Automation</span>
+    <span class="badge">Fuel Theft Control</span>
+    <span class="badge">Owned + Hired Trucks</span>
+  </div>
+  <p style="margin-top: 40px; opacity:.5; font-size: 14px;">Press → or Space to navigate</p>
+</div>
+
+<!-- SLIDE 2: What it does -->
+<div class="slide bg-dark" data-slide="2">
+  <h2>What This App Does</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>📊 Live Trip Profitability</h3>
+      <p>Every Trip Expense (fuel, posho, fines, tolls) rolls up to the Freight Trip instantly. See Profit & Margin while the truck is still on the road — no end-of-month surprises.</p>
+    </div>
+    <div class="card">
+      <h3>💰 Full Accounting Chain</h3>
+      <p>Submit a trip → Sales Invoice, Purchase Invoice, Journal Entries and Payment Entries are created <b>automatically</b>. Everything posts to the General Ledger.</p>
+    </div>
+    <div class="card">
+      <h3>⛽ Anti-Theft & Cost Control</h3>
+      <p>Route benchmarks flag excess fuel draw and inflated allowances in real time. Catch siphoning and over-claims before the money is gone.</p>
+    </div>
+    <div class="card">
+      <h3>🚛 Owned or Hired — Same System</h3>
+      <p>Trucks can be <b>Owned</b> or <b>Hired</b>. Drivers can be <b>Employees</b> or <b>Contractors</b>. The system handles the payment differently for each — automatically.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Architecture -->
+<div class="slide bg-teal" data-slide="3">
+  <h2>Architecture: Hub & Spoke</h2>
+  <p class="sub">The Freight Trip is the center. Everything connects to it.</p>
+  <div style="font-size: 15px; line-height: 2.2;">
+    <div class="flow-row">
+      <div class="flow-box">📋<br><b>Waybill</b><br><small>Cargo / Weight / POD</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box" style="background:rgba(255,213,79,.2); border-color:#ffd54f; min-width:220px;">
+        🚛<br><b>FREIGHT TRIP (HUB)</b><br><small>Route · Truck · Driver · Revenue − Cost = <b>Profit</b></small>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">💵<br><b>Sales Invoice</b><br><small>→ Payment Entry</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box">⛽<br><b>Trip Expense</b><br><small>Fuel · Posho · Fines<br>→ Journal Entry (auto)</small></div>
+      <span class="flow-arrow">↗</span>
+      <span style="opacity:.3;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="flow-arrow">↖</span>
+      <div class="flow-box">🔧<br><b>Hired Truck/Driver</b><br><small>Purchase Inv / Payment</small></div>
+    </div>
+  </div>
+  <p style="margin-top: 24px; opacity: .7; font-size: 16px;">All spokes feed the Hub. The Hub feeds the accounting books.</p>
+</div>
+
+<!-- SLIDE 4: Master Data -->
+<div class="slide bg-purple" data-slide="4">
+  <h2>Master Data — Set Up Once</h2>
+  <div class="grid3">
+    <div class="card">
+      <span class="num">1</span>
+      <h3>Freight Route</h3>
+      <p>Define standard journeys with <b>benchmark fuel</b> and <b>standard allowance</b>.</p>
+      <p style="margin-top:6px; opacity:.6;"><small>e.g. Dar es Salaam → Mwanza, 1180 km, 320L fuel</small></p>
+    </div>
+    <div class="card">
+      <span class="num">2</span>
+      <h3>Driver</h3>
+      <p><b>Own Employee</b> → linked to Employee (paid via Payroll)</p>
+      <p><b>Hired Contractor</b> → linked to Supplier (paid via Payment Entry)</p>
+    </div>
+    <div class="card">
+      <span class="num">3</span>
+      <h3>Transport Vehicle</h3>
+      <p><b>Owned</b> → just running costs</p>
+      <p><b>Hired</b> → owner linked as Supplier, paid via Purchase Invoice</p>
+      <p style="margin-top:4px;">Covers Prime Movers <i>and</i> Trailers.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top: 20px; max-width: 900px;">
+    <h3>⚙️ Logistics Settings</h3>
+    <p>The bridge to your Chart of Accounts. Maps every logistics concept (fuel, allowance, fines, income, bank) to a ledger account. <b>Auto-filled from company defaults on install.</b> Enable <code>Auto-create accounting</code> for full automation.</p>
+  </div>
+</div>
+
+<!-- SLIDE 5: Daily Workflow -->
+<div class="slide bg-dark" data-slide="5">
+  <h2>Daily Workflow — 4 Simple Steps</h2>
+  <div style="max-width: 1000px; width: 100%;">
+    <div class="card" style="margin-bottom: 12px;">
+      <p><span class="step-num">1</span><b>Create Waybill</b> — record what's being carried: customer, cargo, weight, loading/offloading points, POD.</p>
+    </div>
+    <div class="card" style="margin-bottom: 12px;">
+      <p><span class="step-num">2</span><b>Create Freight Trip</b> — pick Route + Truck + Driver + Waybill. Set the Agreed Rate. Revenue auto-calculates.</p>
+    </div>
+    <div class="card" style="margin-bottom: 12px;">
+      <p><span class="step-num">3</span><b>Log Trip Expenses</b> — each fuel stop, posho, fine, toll, or repair. Submit each → Journal Entry posts automatically.</p>
+    </div>
+    <div class="card">
+      <p><span class="step-num">4</span><b>Submit the Freight Trip</b> — review the live P&L, then Submit. <b>Accounting entries are created automatically:</b> Sales Invoice (revenue), Purchase Invoice (hired truck), Payment Entry (hired driver).</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: Accounting / Money Flow -->
+<div class="slide bg-green" data-slide="6">
+  <h2>💰 The Money-Flow Chain</h2>
+  <p class="sub">All automatic. All traceable to the trip.</p>
+  <div style="font-size: 15px;">
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:#81c784;">💵<br><b>Revenue</b></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Sales Invoice</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Payment Entry<br><small>(Receive)</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box" style="border-color:#81c784;">🏦<br><b>Bank</b></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:#ffb74d;">🔧<br><b>Hired Truck</b></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Purchase Invoice<br><small>(to owner)</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Payment Entry<br><small>(Pay)</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:#ffcc80;">👤<br><b>Hired Driver</b></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Payment Entry<br><small>(Pay allowance)</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:#90caf9;">⛽<br><b>Expenses</b></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">Journal Entry<br><small>(auto on each expense)</small></div>
+    </div>
+  </div>
+  <p style="margin-top: 20px; opacity:.8;">Every voucher is stamped with the <b>Freight Trip</b> reference — full traceability.</p>
+</div>
+
+<!-- SLIDE 7: Anti-theft -->
+<div class="slide bg-amber" data-slide="7">
+  <h2>🛡️ Anti-Theft & Cost Control</h2>
+  <p class="sub">Benchmarks on each route become automatic trip audits</p>
+  <div class="grid2" style="max-width: 900px;">
+    <div class="card">
+      <h3>⛽ Fuel Theft Detection</h3>
+      <p>The route defines a <b>Standard Fuel Allocation</b>. If the trip draws more, you see a <span style="color:#ffab91;">red warning</span> with the exact liter variance:</p>
+      <p style="margin-top: 8px;"><code>Fuel Variance = Actual Drawn − Standard</code></p>
+    </div>
+    <div class="card">
+      <h3>💵 Allowance Control</h3>
+      <p>The route defines a <b>Standard Driver Allowance</b>. If the trip claims more posho, you're warned before approving.</p>
+    </div>
+    <div class="card">
+      <h3>📉 Negative Margin Alert</h3>
+      <p>If a trip is losing money (Profit Margin &lt; 0%), the system warns you in <span style="color:#ef9a9a;">red</span> at save time.</p>
+    </div>
+    <div class="card">
+      <h3>📋 Full Audit Trail</h3>
+      <p>Every expense has a receipt attachment. Every change is tracked. Every shilling is in the GL.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Getting Started -->
+<div class="slide bg-teal" data-slide="8">
+  <h2>Getting Started</h2>
+  <div style="max-width: 900px; text-align: left;">
+    <table>
+      <tr><th style="width: 50px;">#</th><th>Action</th><th>Where</th></tr>
+      <tr><td>1</td><td>Check <b>Logistics Settings</b> — accounts are auto-filled from your company</td><td>Logistics → Logistics Settings</td></tr>
+      <tr><td>2</td><td>Create <b>Freight Routes</b> with fuel & allowance benchmarks</td><td>Logistics → Freight Route</td></tr>
+      <tr><td>3</td><td>Register <b>Drivers</b> (Employee or Hired Contractor)</td><td>Logistics → Driver</td></tr>
+      <tr><td>4</td><td>Register <b>Vehicles</b> (Owned or Hired)</td><td>Logistics → Transport Vehicle</td></tr>
+      <tr><td>5</td><td>Create your first <b>Waybill → Freight Trip → Expenses</b></td><td>Logistics → Freight Trip</td></tr>
+      <tr><td>6</td><td>Submit the trip → accounting entries auto-create</td><td>Freight Trip → Submit</td></tr>
+      <tr><td>7</td><td>Reconcile cash with <b>Trip Settlement</b></td><td>Logistics → Trip Settlement</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 9: Summary -->
+<div class="slide bg-hero" data-slide="9">
+  <h2>Why This Matters</h2>
+  <div class="grid2" style="max-width: 900px;">
+    <div class="card">
+      <h3>Before</h3>
+      <p>❌ Profit unknown until month-end<br>❌ Fuel theft undetected<br>❌ Manual invoicing & payments<br>❌ Expenses scattered in notebooks<br>❌ No link between operations & books</p>
+    </div>
+    <div class="card" style="border-color: #81c784;">
+      <h3>After</h3>
+      <p>✅ Live P&L per trip, per driver, per truck<br>✅ Fuel benchmarks catch theft instantly<br>✅ Accounting fully automated on submit<br>✅ Every shilling tracked with receipts<br>✅ Operations and GL perfectly aligned</p>
+    </div>
+  </div>
+  <div style="margin-top: 40px; font-size: 20px; opacity: .8;">
+    <b>From the weighbridge to the bank — every trip, every shilling, accounted for.</b>
+  </div>
+</div>
+
+</div>
+
+<!-- Controls -->
+<div class="controls">
+  <button onclick="prev()" title="Previous">‹</button>
+  <button onclick="next()" title="Next">›</button>
+</div>
+<div class="counter" id="counter">1 / 9</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[n].classList.add('active');
+    document.getElementById('counter').textContent = (n + 1) + ' / ' + total;
+    current = n;
+  }
+  function next() { show(Math.min(current + 1, total - 1)); }
+  function prev() { show(Math.max(current - 1, 0)); }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(total - 1);
+  });
+</script>
+</body>
+</html>

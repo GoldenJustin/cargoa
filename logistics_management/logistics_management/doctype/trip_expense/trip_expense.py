@@ -4,18 +4,16 @@ Trip Expense - logs every shilling spent while the truck is on the road.
 
 On submit it:
   1. Refreshes the rolled-up cost & profit figures on the linked Freight Trip.
-  2. (If the Company paid) posts a Journal Entry to the books, debiting the
-     expense head for the category and crediting the payable (if a supplier is
-     owed) or the bank/cash account. The Journal Entry is linked back to the trip.
+  2. (If the Company paid) posts a Journal Entry to the books automatically.
 
-On cancel the figures are refreshed and the Journal Entry is reversed.
+Accounts are resolved from Logistics Settings first, falling back to the
+Company's default accounts so the system works even before manual config.
 """
 import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt, nowdate
 
-# Maps an Expense Category to the Logistics Settings field that holds its account.
 CATEGORY_ACCOUNT_FIELD = {
 	"Fuel": "fuel_account",
 	"Driver Allowance (Posho)": "allowance_account",
@@ -35,11 +33,6 @@ class TripExpense(Document):
 			frappe.throw(_("Amount must be greater than zero."))
 		if not self.expense_date:
 			self.expense_date = nowdate()
-		if self.expense_category == "Fuel" and not flt(self.quantity):
-			frappe.msgprint(
-				_("Tip: enter the Quantity in Liters so the trip can detect excess fuel consumption."),
-				indicator="orange",
-			)
 
 	def on_submit(self):
 		if self.freight_trip:
@@ -58,35 +51,52 @@ class TripExpense(Document):
 	# --------------------------------------------------------------
 	# Accounting automation
 	# --------------------------------------------------------------
-	def get_expense_account(self, settings):
-		field = CATEGORY_ACCOUNT_FIELD.get(self.expense_category, "other_expense_account")
-		return settings.get(field)
+	def _resolve_company(self, settings):
+		company = self.company or settings.company
+		if not company:
+			company = frappe.db.get_single_value("Global Defaults", "default_company")
+		return company
 
 	def make_journal_entry(self):
 		settings = frappe.get_doc("Logistics Settings")
-		company = self.company or settings.company
+		company = self._resolve_company(settings)
 		if not company:
-			frappe.msgprint(_("No company set. Skipping Journal Entry."), indicator="orange")
+			frappe.msgprint(_("No company found. Skipping Journal Entry."), indicator="orange")
 			return
+
+		company_doc = frappe.get_cached_doc("Company", company)
 
 		cost_center = (
 			frappe.db.get_value("Freight Trip", self.freight_trip, "cost_center")
 			or settings.default_cost_center
+			or company_doc.cost_center
 		)
-		debit_account = self.get_expense_account(settings)
 
+		# --- Debit (expense) account: settings first, then company default ---
+		field = CATEGORY_ACCOUNT_FIELD.get(self.expense_category, "other_expense_account")
+		debit_account = settings.get(field) or getattr(company_doc, "default_expense_account", None)
+
+		# --- Credit account: payable (if supplier) or bank/cash ---
 		if self.supplier:
-			credit_account = settings.default_payable_account or frappe.db.get_value(
-				"Company", company, "default_payable_account"
+			credit_account = (
+				settings.default_payable_account
+				or getattr(company_doc, "default_payable_account", None)
 			)
 		else:
-			credit_account = settings.default_bank_account or settings.default_cash_account
+			credit_account = (
+				settings.default_bank_account
+				or settings.default_cash_account
+				or getattr(company_doc, "default_bank_account", None)
+				or getattr(company_doc, "default_cash_account", None)
+			)
 
 		if not debit_account or not credit_account:
 			frappe.msgprint(
 				_(
-					"Expense or credit account not configured in Logistics Settings. "
-					"Journal Entry was not created for this expense."
+					"Accounts not fully configured. Open Logistics Settings and set the "
+					"expense + bank/cash accounts, or run: "
+					"bench --site YOURSITE console  >>>  "
+					"from logistics_management.logistics_management.setup import seed_settings; seed_settings()"
 				),
 				indicator="orange",
 			)
@@ -101,14 +111,11 @@ class TripExpense(Document):
 		)
 		je.set("freight_trip", self.freight_trip)
 
-		je.append(
-			"accounts",
-			{
-				"account": debit_account,
-				"debit_in_account_currency": flt(self.amount),
-				"cost_center": cost_center,
-			},
-		)
+		je.append("accounts", {
+			"account": debit_account,
+			"debit_in_account_currency": flt(self.amount),
+			"cost_center": cost_center,
+		})
 
 		credit_row = {
 			"account": credit_account,

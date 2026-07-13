@@ -71,6 +71,18 @@ class FreightTrip(Document):
 		if self.trip_status in ("Draft", "Scheduled", "In Transit"):
 			self.trip_status = "Completed"
 
+	def on_submit(self):
+		"""Auto-create accounting vouchers (Sales Invoice, Purchase Invoice,
+		Driver Payment) if enabled in Logistics Settings."""
+		settings = frappe.get_doc("Logistics Settings")
+		if not settings.get("auto_create_accounting", 1):
+			return
+		try:
+			from logistics_management.logistics_management.api import auto_create_accounting
+			auto_create_accounting(self.name)
+		except Exception:
+			frappe.log_error(title="Logistics: auto-accounting for trip " + str(self.name))
+
 	def on_cancel(self):
 		self.db_set("trip_status", "Cancelled")
 
