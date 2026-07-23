@@ -19,7 +19,7 @@
   {"hidden": 0, "is_query_report": 0, "label": "Trip Settlements", "link_to": "Trip Settlement", "link_type": "DocType", "onboard": 0, "type": "Link"},
   {"hidden": 0, "is_query_report": 0, "label": "Fuel Logs", "link_to": "Fuel Log", "link_type": "DocType", "onboard": 0, "type": "Link"},
   {"hidden": 0, "is_query_report": 0, "label": "Vehicle Service", "link_to": "Vehicle Service Log", "link_type": "DocType", "onboard": 0, "type": "Link"},
-  {"hidden": 0, "is_query_report": 0, "label": "Claims", "link_to": "Lost and Damage Claim", "link_type": "DocType", "onboard": 0, "type": "Link"},
+  {"hidden": 0, "is_query_report": 0, "label": "Claims", "link_to": "Cargo Claim", "link_type": "DocType", "onboard": 0, "type": "Link"},
   {"hidden": 0, "is_query_report": 0, "label": "Freight Routes", "link_to": "Freight Route", "link_type": "DocType", "onboard": 0, "type": "Link"},
   {"hidden": 0, "is_query_report": 0, "label": "Drivers", "link_to": "Driver", "link_type": "DocType", "onboard": 0, "type": "Link"},
   {"hidden": 0, "is_query_report": 0, "label": "Transport Vehicles", "link_to": "Transport Vehicle", "link_type": "DocType", "onboard": 0, "type": "Link"},

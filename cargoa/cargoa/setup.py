@@ -11,7 +11,7 @@ DOCTYPES = [
 	"Freight Route", "Driver", "Transport Vehicle", "Cargoa Settings",
 	"Hub", "Tariff", "Customer Contract", "Delivery Order", "Waybill",
 	"Shipment Tracking", "Freight Trip", "Trip Expense", "Fuel Log",
-	"Vehicle Service Log", "Trip Settlement", "Lost and Damage Claim",
+	"Vehicle Service Log", "Trip Settlement", "Cargo Claim",
 ]
 
 
