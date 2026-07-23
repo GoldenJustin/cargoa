@@ -1,0 +1,29 @@
+{
+ "actions": [], "allow_rename": 1, "autoname": "field:driver_name",
+ "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
+ "field_order": ["driver_name","driver_type","linked_employee","linked_supplier","is_active","column_break_3","phone","national_id","license_section","license_number","license_class","column_break_8","license_expiry","contract_section","default_allowance_per_trip","column_break_13","date_joined","notes"],
+ "fields": [
+  {"fieldname":"driver_name","fieldtype":"Data","in_list_view":1,"label":"Driver Name","reqd":1,"unique":1},
+  {"fieldname":"driver_type","fieldtype":"Select","in_list_view":1,"label":"Driver Type","options":"Own Employee\nHired Contractor","reqd":1,"default":"Own Employee"},
+  {"fieldname":"linked_employee","fieldtype":"Link","label":"Linked Employee","options":"Employee","depends_on":"eval:doc.driver_type==\"Own Employee\""},
+  {"fieldname":"linked_supplier","fieldtype":"Link","label":"Linked Supplier (Owner)","options":"Supplier","depends_on":"eval:doc.driver_type==\"Hired Contractor\""},
+  {"fieldname":"is_active","fieldtype":"Check","label":"Is Active","default":1},
+  {"fieldname":"column_break_3","fieldtype":"Column Break"},
+  {"fieldname":"phone","fieldtype":"Data","label":"Phone"},
+  {"fieldname":"national_id","fieldtype":"Data","label":"National ID / NIDA"},
+  {"fieldname":"license_section","fieldtype":"Section Break","label":"Driving License"},
+  {"fieldname":"license_number","fieldtype":"Data","label":"License Number"},
+  {"fieldname":"license_class","fieldtype":"Data","label":"License Class"},
+  {"fieldname":"column_break_8","fieldtype":"Column Break"},
+  {"fieldname":"license_expiry","fieldtype":"Date","label":"License Expiry"},
+  {"fieldname":"contract_section","fieldtype":"Section Break","label":"Contract & Allowance"},
+  {"fieldname":"default_allowance_per_trip","fieldtype":"Currency","label":"Default Allowance per Trip"},
+  {"fieldname":"column_break_13","fieldtype":"Column Break"},
+  {"fieldname":"date_joined","fieldtype":"Date","label":"Date Onboarded"},
+  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"}
+ ],
+ "index_web_pages_for_search":1,"links":[],
+ "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Driver","naming_rule":"By fieldname","owner":"Administrator",
+ "permissions":[{"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"write":1}],
+ "quick_entry":1,"search_fields":"driver_type,phone","sort_field":"modified","sort_order":"DESC","states":[],"title_field":"driver_name","track_changes":1
+}

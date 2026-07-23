@@ -1,2 +1,0 @@
-# Patches are applied in sequence. List each patch on its own line:
-# <version>.<name_of_file>

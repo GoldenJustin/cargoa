@@ -1,0 +1,25 @@
+{
+ "actions": [], "allow_rename": 1, "autoname": "field:hub_name",
+ "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
+ "field_order": ["hub_name","hub_type","is_active","column_break_3","city","region","details_section","address","manager","column_break_8","contact_phone","storage_capacity","notes_section","notes"],
+ "fields": [
+  {"fieldname":"hub_name","fieldtype":"Data","in_list_view":1,"label":"Hub Name","reqd":1,"unique":1},
+  {"fieldname":"hub_type","fieldtype":"Select","in_list_view":1,"label":"Hub Type","options":"Warehouse\nCross-Dock\nTransit Point\nDepot\nDistribution Center","reqd":1,"default":"Warehouse"},
+  {"fieldname":"is_active","fieldtype":"Check","label":"Is Active","default":1},
+  {"fieldname":"column_break_3","fieldtype":"Column Break"},
+  {"fieldname":"city","fieldtype":"Data","in_list_view":1,"label":"City"},
+  {"fieldname":"region","fieldtype":"Data","label":"Region"},
+  {"fieldname":"details_section","fieldtype":"Section Break","label":"Details"},
+  {"fieldname":"address","fieldtype":"Small Text","label":"Address"},
+  {"fieldname":"manager","fieldtype":"Link","label":"Manager","options":"Employee"},
+  {"fieldname":"column_break_8","fieldtype":"Column Break"},
+  {"fieldname":"contact_phone","fieldtype":"Data","label":"Contact Phone"},
+  {"fieldname":"storage_capacity","fieldtype":"Float","label":"Storage Capacity (sq m / pallets)"},
+  {"fieldname":"notes_section","fieldtype":"Section Break","label":"Notes"},
+  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"}
+ ],
+ "index_web_pages_for_search":1,"links":[],
+ "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Hub","naming_rule":"By fieldname","owner":"Administrator",
+ "permissions":[{"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"write":1}],
+ "search_fields":"hub_type,city","sort_field":"modified","sort_order":"DESC","states":[],"title_field":"hub_name","track_changes":1
+}

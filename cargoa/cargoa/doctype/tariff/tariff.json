@@ -1,0 +1,24 @@
+{
+ "actions": [], "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
+ "field_order": ["tariff_name","route","customer","rate_type","base_rate","column_break_5","min_charge","is_active","validity_section","valid_from","valid_to","column_break_10","description","notes"],
+ "fields": [
+  {"fieldname":"tariff_name","fieldtype":"Data","in_list_view":1,"label":"Tariff Name","reqd":1},
+  {"fieldname":"route","fieldtype":"Link","in_list_view":1,"label":"Route","options":"Freight Route"},
+  {"fieldname":"customer","fieldtype":"Link","label":"Customer (blank = all customers)","options":"Customer"},
+  {"fieldname":"rate_type","fieldtype":"Select","in_list_view":1,"label":"Rate Type","options":"Per Ton\nPer Trip\nPer Km\nPer Container\nFlat","reqd":1,"default":"Per Ton"},
+  {"fieldname":"base_rate","fieldtype":"Currency","in_list_view":1,"label":"Base Rate","reqd":1},
+  {"fieldname":"column_break_5","fieldtype":"Column Break"},
+  {"fieldname":"min_charge","fieldtype":"Currency","label":"Minimum Charge"},
+  {"fieldname":"is_active","fieldtype":"Check","label":"Is Active","default":1},
+  {"fieldname":"validity_section","fieldtype":"Section Break","label":"Validity"},
+  {"fieldname":"valid_from","fieldtype":"Date","label":"Valid From"},
+  {"fieldname":"valid_to","fieldtype":"Date","label":"Valid To"},
+  {"fieldname":"column_break_10","fieldtype":"Column Break"},
+  {"fieldname":"description","fieldtype":"Small Text","label":"Description / Terms"},
+  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"}
+ ],
+ "index_web_pages_for_search":1,"links":[],
+ "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Tariff","owner":"Administrator",
+ "permissions":[{"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"write":1}],
+ "search_fields":"route,customer,rate_type","sort_field":"modified","sort_order":"DESC","states":[],"title_field":"tariff_name","track_changes":1
+}

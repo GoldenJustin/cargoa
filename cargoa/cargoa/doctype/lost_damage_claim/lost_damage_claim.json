@@ -1,0 +1,29 @@
+{
+ "actions": [], "autoname": "naming_series:", "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
+ "field_order": ["naming_series","company","column_break_0","claim_date","status","links_section","freight_trip","waybill","customer","column_break_l","claim_type","claim_amount","details_section","description","evidence_attachment","column_break_d","approved_amount","resolution_notes","amended_from"],
+ "fields": [
+  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"CLM-.YYYY.-.#####","default":"CLM-.YYYY.-.#####","reqd":1,"set_only_once":1},
+  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
+  {"fieldname":"column_break_0","fieldtype":"Column Break"},
+  {"fieldname":"claim_date","fieldtype":"Date","in_list_view":1,"label":"Claim Date","reqd":1,"default":"Today"},
+  {"fieldname":"status","fieldtype":"Select","in_list_view":1,"in_standard_filter":1,"label":"Status","options":"Reported\nUnder Review\nApproved\nRejected\nSettled","default":"Reported","reqd":1},
+  {"fieldname":"links_section","fieldtype":"Section Break","label":"Related"},
+  {"fieldname":"freight_trip","fieldtype":"Link","in_list_view":1,"label":"Freight Trip","options":"Freight Trip","reqd":1},
+  {"fieldname":"waybill","fieldtype":"Link","label":"Waybill","options":"Waybill"},
+  {"fieldname":"customer","fieldtype":"Link","label":"Customer","options":"Customer"},
+  {"fieldname":"column_break_l","fieldtype":"Column Break"},
+  {"fieldname":"claim_type","fieldtype":"Select","in_list_view":1,"label":"Claim Type","options":"Lost Goods\nDamaged Goods\nShort Delivery\nDelay\nOther","reqd":1},
+  {"fieldname":"claim_amount","fieldtype":"Currency","in_list_view":1,"label":"Claim Amount","reqd":1},
+  {"fieldname":"details_section","fieldtype":"Section Break","label":"Details"},
+  {"fieldname":"description","fieldtype":"Small Text","label":"Description","reqd":1},
+  {"fieldname":"evidence_attachment","fieldtype":"Attach","label":"Evidence / Photo"},
+  {"fieldname":"column_break_d","fieldtype":"Column Break"},
+  {"fieldname":"approved_amount","fieldtype":"Currency","label":"Approved Amount"},
+  {"fieldname":"resolution_notes","fieldtype":"Small Text","label":"Resolution Notes"},
+  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Lost and Damage Claim","print_hide":1,"read_only":1}
+ ],
+ "index_web_pages_for_search":1,"links":[],
+ "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Lost and Damage Claim","owner":"Administrator",
+ "permissions":[{"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"write":1}],
+ "search_fields":"freight_trip,claim_type,status","sort_field":"claim_date","sort_order":"DESC","states":[{"color":"Orange","title":"Reported"},{"color":"Blue","title":"Under Review"},{"color":"Green","title":"Approved"},{"color":"Red","title":"Rejected"},{"color":"Grey","title":"Settled"}],"track_changes":1
+}

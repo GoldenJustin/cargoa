@@ -1,0 +1,7 @@
+{
+ "add_total_row": 1, "creation": "2026-07-16 00:00:00.000000", "doctype": "Report",
+ "is_standard": "Yes", "module": "Cargoa", "name": "Fleet Utilization",
+ "owner": "Administrator", "ref_doctype": "Freight Trip", "report_name": "Fleet Utilization",
+ "report_type": "Script Report",
+ "roles": [{"role": "Cargoa Manager"}, {"role": "System Manager"}]
+}

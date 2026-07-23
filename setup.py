@@ -1,23 +1,15 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-with open("requirements.txt") as f:
-	install_requires = [
-		line.strip()
-		for line in f.read().split("\n")
-		if line.strip() and not line.startswith("#")
-	]
-
 setup(
-	name="logistics_management",
-	version="1.0.0",
-	description="Hub-and-Spoke Freight & Logistics Management for Frappe / ERPNext",
-	author="Arena Logistics",
-	author_email="support@example.com",
-	url="https://example.com/logistics_management",
+	name="cargoa",
+	version="2.0.0",
+	description="Cargoa — Logistics Operations Engine for Frappe / ERPNext",
+	author="Cargoa",
+	author_email="support@cargoa.app",
+	url="https://cargoa.app",
 	license="MIT",
 	packages=find_packages(),
 	zip_safe=False,
 	include_package_data=True,
-	install_requires=install_requires,
 )

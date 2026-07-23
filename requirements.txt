@@ -1,4 +1,1 @@
-# Dependencies are provided by the Frappe / ERPNext framework.
-# No third-party packages are required.
-# frappe
-# erpnext
+# Dependencies provided by Frappe / ERPNext framework.
