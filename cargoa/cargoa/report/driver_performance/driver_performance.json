@@ -1,7 +1,20 @@
 {
- "add_total_row": 1, "creation": "2026-07-16 00:00:00.000000", "doctype": "Report",
- "is_standard": "Yes", "module": "Cargoa", "name": "Driver Performance",
- "owner": "Administrator", "ref_doctype": "Freight Trip", "report_name": "Driver Performance",
+ "add_total_row": 1,
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "Report",
+ "is_standard": "Yes",
+ "module": "Cargoa",
+ "name": "Driver Performance",
+ "owner": "Administrator",
+ "ref_doctype": "Freight Trip",
+ "report_name": "Driver Performance",
  "report_type": "Script Report",
- "roles": [{"role": "Cargoa Manager"}, {"role": "System Manager"}]
+ "roles": [
+  {
+   "role": "Cargoa Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ]
 }

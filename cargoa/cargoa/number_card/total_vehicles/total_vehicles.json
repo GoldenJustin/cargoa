@@ -1,1 +1,1 @@
-{"doctype":"Number Card","name":"Total Vehicles","label":"Total Vehicles","type":"Document Type","document_type":"Transport Vehicle","function":"Count","color":"#e67e22","filters_json":"[]","is_public":1,"is_standard":1,"module":"Cargoa","stats_time_series":0}
+{"doctype": "Number Card", "name": "Total Vehicles", "label": "Total Vehicles", "type": "Document Type", "document_type": "Transport Vehicle", "function": "Count", "color": "#e67e22", "is_public": 1, "is_standard": 1, "module": "Cargoa", "stats_time_series": 0, "filters_json": "[]"}

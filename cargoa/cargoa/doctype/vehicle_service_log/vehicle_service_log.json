@@ -1,28 +1,178 @@
 {
- "actions": [], "autoname": "naming_series:", "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
- "field_order": ["naming_series","company","column_break_0","service_date","vehicle","status","details_section","service_type","odometer_reading","description","column_break_d","workshop","cost","receipt_attachment","schedule_section","next_service_km","next_service_date","amended_from"],
- "fields": [
-  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"SVC-.YYYY.-.#####","default":"SVC-.YYYY.-.#####","reqd":1,"set_only_once":1},
-  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
-  {"fieldname":"column_break_0","fieldtype":"Column Break"},
-  {"fieldname":"service_date","fieldtype":"Date","in_list_view":1,"label":"Service Date","reqd":1,"default":"Today"},
-  {"fieldname":"vehicle","fieldtype":"Link","in_list_view":1,"in_standard_filter":1,"label":"Vehicle","options":"Transport Vehicle","reqd":1},
-  {"fieldname":"status","fieldtype":"Select","in_list_view":1,"label":"Status","options":"Scheduled\nIn Progress\nCompleted","default":"Completed","reqd":1},
-  {"fieldname":"details_section","fieldtype":"Section Break","label":"Service Details"},
-  {"fieldname":"service_type","fieldtype":"Select","in_list_view":1,"label":"Service Type","options":"Routine Service\nOil Change\nTyre Replacement\nBrake Service\nMajor Repair\nInspection\nOther","reqd":1},
-  {"fieldname":"odometer_reading","fieldtype":"Int","label":"Odometer (km)"},
-  {"fieldname":"description","fieldtype":"Small Text","label":"Description / Work Done","reqd":1},
-  {"fieldname":"column_break_d","fieldtype":"Column Break"},
-  {"fieldname":"workshop","fieldtype":"Data","label":"Workshop / Garage"},
-  {"fieldname":"cost","fieldtype":"Currency","in_list_view":1,"label":"Cost","reqd":1},
-  {"fieldname":"receipt_attachment","fieldtype":"Attach","label":"Receipt / Invoice"},
-  {"fieldname":"schedule_section","fieldtype":"Section Break","label":"Next Service"},
-  {"fieldname":"next_service_km","fieldtype":"Int","label":"Next Service at (km)"},
-  {"fieldname":"next_service_date","fieldtype":"Date","label":"Next Service Date"},
-  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Vehicle Service Log","print_hide":1,"read_only":1}
+ "actions": [],
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "DocType",
+ "field_order": [
+  "naming_series",
+  "company",
+  "cb0",
+  "service_date",
+  "vehicle",
+  "status",
+  "det_section",
+  "service_type",
+  "odometer_reading",
+  "description",
+  "cb1",
+  "workshop",
+  "cost",
+  "receipt_attachment",
+  "sched_section",
+  "next_service_km",
+  "next_service_date",
+  "amended_from"
  ],
- "index_web_pages_for_search":1,"is_submittable":1,"links":[],
- "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Vehicle Service Log","naming_rule":"By \"Naming Series\" field","owner":"Administrator",
- "permissions":[{"amend":1,"cancel":1,"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"submit":1,"write":1}],
- "search_fields":"vehicle,service_type,status","sort_field":"service_date","sort_order":"DESC","states":[],"track_changes":1
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "SVC-.YYYY.-.#####",
+   "default": "SVC-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb0",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "service_date",
+   "fieldtype": "Date",
+   "label": "Service Date",
+   "in_list_view": 1,
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1,
+   "options": "Transport Vehicle"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "in_list_view": 1,
+   "options": "Scheduled\nIn Progress\nCompleted",
+   "default": "Completed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "det_section",
+   "fieldtype": "Section Break",
+   "label": "Service Details"
+  },
+  {
+   "fieldname": "service_type",
+   "fieldtype": "Select",
+   "label": "Service Type",
+   "in_list_view": 1,
+   "reqd": 1,
+   "options": "Routine Service\nOil Change\nTyre Replacement\nBrake Service\nMajor Repair\nInspection\nOther"
+  },
+  {
+   "fieldname": "odometer_reading",
+   "fieldtype": "Int",
+   "label": "Odometer (km)"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "workshop",
+   "fieldtype": "Data",
+   "label": "Workshop"
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "label": "Cost",
+   "in_list_view": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "receipt_attachment",
+   "fieldtype": "Attach",
+   "label": "Receipt"
+  },
+  {
+   "fieldname": "sched_section",
+   "fieldtype": "Section Break",
+   "label": "Next Service"
+  },
+  {
+   "fieldname": "next_service_km",
+   "fieldtype": "Int",
+   "label": "Next Service at (km)"
+  },
+  {
+   "fieldname": "next_service_date",
+   "fieldtype": "Date",
+   "label": "Next Service Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "options": "Vehicle Service Log"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "Vehicle Service Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "service_date",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "is_submittable": 1,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "search_fields": "vehicle,service_type,status"
 }

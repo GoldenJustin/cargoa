@@ -1,72 +1,512 @@
 {
- "actions": [], "autoname": "naming_series:",
- "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
- "field_order": ["naming_series","company","column_break_top","trip_date","trip_status","cost_center","journey_section","route","distance_km","column_break_j","trip_type","expected_fuel","vehicle_section","prime_mover","trailer","vehicle_ownership_type","column_break_v","driver","driver_type","revenue_section","delivery_order","waybill","customer","cargo_description","cargo_weight","uom","column_break_r","agreed_rate","is_flat_rate","total_revenue","cost_section","total_fuel_cost","total_allowances","total_fines_tolls","column_break_c1","total_repairs","total_offloading_loading","total_truck_hire","total_other","column_break_c2","total_trip_cost","fuel_control_section","total_fuel_liters","standard_fuel_allocation","column_break_fc","fuel_variance_liters","standard_driver_allowance","profit_section","trip_profit","column_break_p","profit_margin","hire_section","truck_hire_rate","accounting_section","sales_invoice","purchase_invoice","column_break_ac","driver_payment","notes_section","notes","amended_from"],
- "fields": [
-  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"TRIP-.YYYY.-.#####","default":"TRIP-.YYYY.-.#####","reqd":1,"set_only_once":1},
-  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
-  {"fieldname":"column_break_top","fieldtype":"Column Break"},
-  {"fieldname":"trip_date","fieldtype":"Date","in_list_view":1,"label":"Trip Date","reqd":1,"default":"Today"},
-  {"fieldname":"trip_status","fieldtype":"Select","in_list_view":1,"in_standard_filter":1,"label":"Trip Status","options":"Draft\nScheduled\nIn Transit\nCompleted\nCancelled","default":"Draft","reqd":1},
-  {"fieldname":"cost_center","fieldtype":"Link","label":"Cost Center","options":"Cost Center"},
-  {"fieldname":"journey_section","fieldtype":"Section Break","label":"Route"},
-  {"fieldname":"route","fieldtype":"Link","in_list_view":1,"label":"Freight Route","options":"Freight Route"},
-  {"fieldname":"distance_km","fieldtype":"Float","label":"Distance (km)","read_only":1,"fetch_from":"route.total_distance_km"},
-  {"fieldname":"column_break_j","fieldtype":"Column Break"},
-  {"fieldname":"trip_type","fieldtype":"Data","label":"Trip Type","read_only":1,"fetch_from":"route.trip_type"},
-  {"fieldname":"expected_fuel","fieldtype":"Float","label":"Expected Fuel (L)","read_only":1,"fetch_from":"route.standard_fuel_allocation"},
-  {"fieldname":"vehicle_section","fieldtype":"Section Break","label":"Vehicle & Driver"},
-  {"fieldname":"prime_mover","fieldtype":"Link","in_list_view":1,"label":"Prime Mover (Truck)","options":"Transport Vehicle","reqd":1},
-  {"fieldname":"trailer","fieldtype":"Link","label":"Trailer","options":"Transport Vehicle"},
-  {"fieldname":"vehicle_ownership_type","fieldtype":"Data","label":"Truck Ownership","read_only":1,"fetch_from":"prime_mover.ownership_type"},
-  {"fieldname":"column_break_v","fieldtype":"Column Break"},
-  {"fieldname":"driver","fieldtype":"Link","in_list_view":1,"label":"Driver","options":"Driver","reqd":1},
-  {"fieldname":"driver_type","fieldtype":"Data","label":"Driver Type","read_only":1,"fetch_from":"driver.driver_type"},
-  {"fieldname":"revenue_section","fieldtype":"Section Break","label":"Cargo & Revenue"},
-  {"fieldname":"delivery_order","fieldtype":"Link","label":"Delivery Order","options":"Delivery Order"},
-  {"fieldname":"waybill","fieldtype":"Link","label":"Waybill","options":"Waybill"},
-  {"fieldname":"customer","fieldtype":"Link","in_list_view":1,"label":"Customer","options":"Customer","fetch_from":"waybill.customer"},
-  {"fieldname":"cargo_description","fieldtype":"Small Text","label":"Cargo Description","read_only":1,"fetch_from":"waybill.cargo_description"},
-  {"fieldname":"cargo_weight","fieldtype":"Float","label":"Cargo Weight / Qty","read_only":1,"fetch_from":"waybill.weight_quantity"},
-  {"fieldname":"uom","fieldtype":"Link","label":"UOM","options":"UOM","read_only":1,"fetch_from":"waybill.uom"},
-  {"fieldname":"column_break_r","fieldtype":"Column Break"},
-  {"fieldname":"agreed_rate","fieldtype":"Currency","label":"Agreed Rate per UOM","depends_on":"eval:!doc.is_flat_rate","mandatory_depends_on":"eval:!doc.is_flat_rate"},
-  {"fieldname":"is_flat_rate","fieldtype":"Check","label":"Flat Rate (enter revenue manually)","default":0},
-  {"fieldname":"total_revenue","fieldtype":"Currency","in_list_view":1,"label":"Total Revenue","read_only_depends_on":"eval:!doc.is_flat_rate","bold":1},
-  {"fieldname":"cost_section","fieldtype":"Section Break","label":"Cost Tracking (auto from Trip Expenses)"},
-  {"fieldname":"total_fuel_cost","fieldtype":"Currency","label":"Total Fuel Cost","read_only":1},
-  {"fieldname":"total_allowances","fieldtype":"Currency","label":"Total Allowances","read_only":1},
-  {"fieldname":"total_fines_tolls","fieldtype":"Currency","label":"Total Fines & Tolls","read_only":1},
-  {"fieldname":"column_break_c1","fieldtype":"Column Break"},
-  {"fieldname":"total_repairs","fieldtype":"Currency","label":"Total En-route Repairs","read_only":1},
-  {"fieldname":"total_offloading_loading","fieldtype":"Currency","label":"Total Loading / Offloading","read_only":1},
-  {"fieldname":"total_truck_hire","fieldtype":"Currency","label":"Total Truck Hire","read_only":1},
-  {"fieldname":"total_other","fieldtype":"Currency","label":"Total Other","read_only":1},
-  {"fieldname":"column_break_c2","fieldtype":"Column Break"},
-  {"fieldname":"total_trip_cost","fieldtype":"Currency","label":"Total Trip Cost","read_only":1,"bold":1},
-  {"fieldname":"fuel_control_section","fieldtype":"Section Break","label":"Fuel & Allowance Control"},
-  {"fieldname":"total_fuel_liters","fieldtype":"Float","label":"Actual Fuel Drawn (L)","read_only":1},
-  {"fieldname":"standard_fuel_allocation","fieldtype":"Float","label":"Standard Fuel Allocation (L)","read_only":1,"fetch_from":"route.standard_fuel_allocation"},
-  {"fieldname":"column_break_fc","fieldtype":"Column Break"},
-  {"fieldname":"fuel_variance_liters","fieldtype":"Float","label":"Fuel Variance (L)","read_only":1,"bold":1},
-  {"fieldname":"standard_driver_allowance","fieldtype":"Currency","label":"Standard Driver Allowance","read_only":1,"fetch_from":"route.standard_driver_allowance"},
-  {"fieldname":"profit_section","fieldtype":"Section Break","label":"Profitability"},
-  {"fieldname":"trip_profit","fieldtype":"Currency","label":"Trip Profit","read_only":1,"bold":1},
-  {"fieldname":"column_break_p","fieldtype":"Column Break"},
-  {"fieldname":"profit_margin","fieldtype":"Percent","label":"Profit Margin %","read_only":1,"bold":1},
-  {"fieldname":"hire_section","fieldtype":"Section Break","label":"Hired Truck Settlement","depends_on":"eval:doc.vehicle_ownership_type==\"Hired\""},
-  {"fieldname":"truck_hire_rate","fieldtype":"Currency","label":"Agreed Truck Hire Rate"},
-  {"fieldname":"accounting_section","fieldtype":"Section Break","label":"Accounting Links (auto)","collapsible":1},
-  {"fieldname":"sales_invoice","fieldtype":"Link","label":"Sales Invoice","no_copy":1,"options":"Sales Invoice","read_only":1},
-  {"fieldname":"purchase_invoice","fieldtype":"Link","label":"Truck Hire Purchase Invoice","no_copy":1,"options":"Purchase Invoice","read_only":1},
-  {"fieldname":"column_break_ac","fieldtype":"Column Break"},
-  {"fieldname":"driver_payment","fieldtype":"Link","label":"Driver Payment Entry","no_copy":1,"options":"Payment Entry","read_only":1},
-  {"fieldname":"notes_section","fieldtype":"Section Break","label":"Notes"},
-  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"},
-  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Freight Trip","print_hide":1,"read_only":1}
+ "actions": [],
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "DocType",
+ "field_order": [
+  "naming_series",
+  "company",
+  "cb_top",
+  "trip_date",
+  "trip_status",
+  "cost_center",
+  "route_section",
+  "route",
+  "distance_km",
+  "cb_j",
+  "trip_type",
+  "expected_fuel",
+  "vehicle_section",
+  "prime_mover",
+  "trailer",
+  "vehicle_ownership_type",
+  "cb_v",
+  "driver",
+  "driver_type",
+  "rev_section",
+  "delivery_order",
+  "waybill",
+  "customer",
+  "cargo_description",
+  "cargo_weight",
+  "uom",
+  "cb_r",
+  "agreed_rate",
+  "is_flat_rate",
+  "total_revenue",
+  "cost_section",
+  "total_fuel_cost",
+  "total_allowances",
+  "total_fines_tolls",
+  "cb_c1",
+  "total_repairs",
+  "total_offloading_loading",
+  "total_truck_hire",
+  "total_other",
+  "cb_c2",
+  "total_trip_cost",
+  "fuel_section",
+  "total_fuel_liters",
+  "standard_fuel_allocation",
+  "cb_fc",
+  "fuel_variance_liters",
+  "standard_driver_allowance",
+  "profit_section",
+  "trip_profit",
+  "cb_p",
+  "profit_margin",
+  "hire_section",
+  "truck_hire_rate",
+  "acct_section",
+  "sales_invoice",
+  "purchase_invoice",
+  "cb_ac",
+  "driver_payment",
+  "notes",
+  "amended_from"
  ],
- "index_web_pages_for_search":1,"is_submittable":1,"links":[],
- "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Freight Trip","naming_rule":"By \"Naming Series\" field","owner":"Administrator",
- "permissions":[{"amend":1,"cancel":1,"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"submit":1,"write":1}],
- "search_fields":"route,prime_mover,driver,customer,trip_status","sort_field":"trip_date","sort_order":"DESC","states":[{"color":"Orange","title":"Draft"},{"color":"Cyan","title":"Scheduled"},{"color":"Blue","title":"In Transit"},{"color":"Green","title":"Completed"},{"color":"Red","title":"Cancelled"}],"title_field":"customer","track_changes":1
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "TRIP-.YYYY.-.#####",
+   "default": "TRIP-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_top",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "trip_date",
+   "fieldtype": "Date",
+   "label": "Trip Date",
+   "in_list_view": 1,
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "trip_status",
+   "fieldtype": "Select",
+   "label": "Trip Status",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1,
+   "default": "Draft",
+   "options": "Draft\nScheduled\nIn Transit\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "route_section",
+   "fieldtype": "Section Break",
+   "label": "Route"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Freight Route",
+   "in_list_view": 1,
+   "options": "Freight Route"
+  },
+  {
+   "fieldname": "distance_km",
+   "fieldtype": "Float",
+   "label": "Distance (km)",
+   "read_only": 1,
+   "fetch_from": "route.total_distance_km"
+  },
+  {
+   "fieldname": "cb_j",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "trip_type",
+   "fieldtype": "Data",
+   "label": "Trip Type",
+   "read_only": 1,
+   "fetch_from": "route.trip_type"
+  },
+  {
+   "fieldname": "expected_fuel",
+   "fieldtype": "Float",
+   "label": "Expected Fuel (L)",
+   "read_only": 1,
+   "fetch_from": "route.standard_fuel_allocation"
+  },
+  {
+   "fieldname": "vehicle_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle & Driver"
+  },
+  {
+   "fieldname": "prime_mover",
+   "fieldtype": "Link",
+   "label": "Prime Mover",
+   "in_list_view": 1,
+   "reqd": 1,
+   "options": "Transport Vehicle"
+  },
+  {
+   "fieldname": "trailer",
+   "fieldtype": "Link",
+   "label": "Trailer",
+   "options": "Transport Vehicle"
+  },
+  {
+   "fieldname": "vehicle_ownership_type",
+   "fieldtype": "Data",
+   "label": "Truck Ownership",
+   "read_only": 1,
+   "fetch_from": "prime_mover.ownership_type"
+  },
+  {
+   "fieldname": "cb_v",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "in_list_view": 1,
+   "reqd": 1,
+   "options": "Driver"
+  },
+  {
+   "fieldname": "driver_type",
+   "fieldtype": "Data",
+   "label": "Driver Type",
+   "read_only": 1,
+   "fetch_from": "driver.driver_type"
+  },
+  {
+   "fieldname": "rev_section",
+   "fieldtype": "Section Break",
+   "label": "Cargo & Revenue"
+  },
+  {
+   "fieldname": "delivery_order",
+   "fieldtype": "Link",
+   "label": "Delivery Order",
+   "options": "Delivery Order"
+  },
+  {
+   "fieldname": "waybill",
+   "fieldtype": "Link",
+   "label": "Waybill",
+   "options": "Waybill"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "in_list_view": 1,
+   "options": "Customer",
+   "fetch_from": "waybill.customer"
+  },
+  {
+   "fieldname": "cargo_description",
+   "fieldtype": "Small Text",
+   "label": "Cargo Description",
+   "read_only": 1,
+   "fetch_from": "waybill.cargo_description"
+  },
+  {
+   "fieldname": "cargo_weight",
+   "fieldtype": "Float",
+   "label": "Cargo Weight",
+   "read_only": 1,
+   "fetch_from": "waybill.weight_quantity"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1,
+   "fetch_from": "waybill.uom"
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "agreed_rate",
+   "fieldtype": "Currency",
+   "label": "Agreed Rate per UOM",
+   "depends_on": "eval:!doc.is_flat_rate",
+   "mandatory_depends_on": "eval:!doc.is_flat_rate"
+  },
+  {
+   "fieldname": "is_flat_rate",
+   "fieldtype": "Check",
+   "label": "Flat Rate",
+   "default": 0
+  },
+  {
+   "fieldname": "total_revenue",
+   "fieldtype": "Currency",
+   "label": "Total Revenue",
+   "in_list_view": 1,
+   "read_only_depends_on": "eval:!doc.is_flat_rate",
+   "bold": 1
+  },
+  {
+   "fieldname": "cost_section",
+   "fieldtype": "Section Break",
+   "label": "Cost Tracking (auto)"
+  },
+  {
+   "fieldname": "total_fuel_cost",
+   "fieldtype": "Currency",
+   "label": "Total Fuel Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_allowances",
+   "fieldtype": "Currency",
+   "label": "Total Allowances",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_fines_tolls",
+   "fieldtype": "Currency",
+   "label": "Total Fines & Tolls",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_c1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "total_repairs",
+   "fieldtype": "Currency",
+   "label": "Total Repairs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_offloading_loading",
+   "fieldtype": "Currency",
+   "label": "Total Loading/Offloading",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_truck_hire",
+   "fieldtype": "Currency",
+   "label": "Total Truck Hire",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_other",
+   "fieldtype": "Currency",
+   "label": "Total Other",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_c2",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "total_trip_cost",
+   "fieldtype": "Currency",
+   "label": "Total Trip Cost",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "fuel_section",
+   "fieldtype": "Section Break",
+   "label": "Fuel & Allowance Control"
+  },
+  {
+   "fieldname": "total_fuel_liters",
+   "fieldtype": "Float",
+   "label": "Actual Fuel Drawn (L)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_fuel_allocation",
+   "fieldtype": "Float",
+   "label": "Standard Fuel Allocation (L)",
+   "read_only": 1,
+   "fetch_from": "route.standard_fuel_allocation"
+  },
+  {
+   "fieldname": "cb_fc",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "fuel_variance_liters",
+   "fieldtype": "Float",
+   "label": "Fuel Variance (L)",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "standard_driver_allowance",
+   "fieldtype": "Currency",
+   "label": "Standard Driver Allowance",
+   "read_only": 1,
+   "fetch_from": "route.standard_driver_allowance"
+  },
+  {
+   "fieldname": "profit_section",
+   "fieldtype": "Section Break",
+   "label": "Profitability"
+  },
+  {
+   "fieldname": "trip_profit",
+   "fieldtype": "Currency",
+   "label": "Trip Profit",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cb_p",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "profit_margin",
+   "fieldtype": "Percent",
+   "label": "Profit Margin %",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "hire_section",
+   "fieldtype": "Section Break",
+   "label": "Hired Truck Settlement",
+   "depends_on": "eval:doc.vehicle_ownership_type==\"Hired\""
+  },
+  {
+   "fieldname": "truck_hire_rate",
+   "fieldtype": "Currency",
+   "label": "Agreed Truck Hire Rate"
+  },
+  {
+   "fieldname": "acct_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting Links (auto)",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "no_copy": 1,
+   "read_only": 1,
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "no_copy": 1,
+   "read_only": 1,
+   "options": "Purchase Invoice"
+  },
+  {
+   "fieldname": "cb_ac",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "driver_payment",
+   "fieldtype": "Link",
+   "label": "Driver Payment Entry",
+   "no_copy": 1,
+   "read_only": 1,
+   "options": "Payment Entry"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "options": "Freight Trip"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "Freight Trip",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "trip_date",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Orange",
+   "title": "Draft"
+  },
+  {
+   "color": "Cyan",
+   "title": "Scheduled"
+  },
+  {
+   "color": "Blue",
+   "title": "In Transit"
+  },
+  {
+   "color": "Green",
+   "title": "Completed"
+  },
+  {
+   "color": "Red",
+   "title": "Cancelled"
+  }
+ ],
+ "track_changes": 1,
+ "is_submittable": 1,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "search_fields": "route,prime_mover,driver,customer,trip_status",
+ "title_field": "customer"
 }

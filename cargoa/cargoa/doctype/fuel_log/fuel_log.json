@@ -1,30 +1,193 @@
 {
- "actions": [], "autoname": "naming_series:", "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
- "field_order": ["naming_series","company","column_break_0","fuel_date","vehicle","links_section","freight_trip","fuel_station","supplier","column_break_l","odometer_reading","full_tank","fuel_section","liters","rate_per_liter","total_amount","column_break_f","payment_mode","receipt_attachment","amended_from"],
- "fields": [
-  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"FL-.YYYY.-.#####","default":"FL-.YYYY.-.#####","reqd":1,"set_only_once":1},
-  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
-  {"fieldname":"column_break_0","fieldtype":"Column Break"},
-  {"fieldname":"fuel_date","fieldtype":"Date","in_list_view":1,"label":"Fuel Date","reqd":1,"default":"Today"},
-  {"fieldname":"vehicle","fieldtype":"Link","in_list_view":1,"in_standard_filter":1,"label":"Vehicle","options":"Transport Vehicle","reqd":1},
-  {"fieldname":"links_section","fieldtype":"Section Break","label":"Links"},
-  {"fieldname":"freight_trip","fieldtype":"Link","label":"Freight Trip (optional)","options":"Freight Trip"},
-  {"fieldname":"fuel_station","fieldtype":"Data","label":"Fuel Station"},
-  {"fieldname":"supplier","fieldtype":"Link","label":"Supplier","options":"Supplier"},
-  {"fieldname":"column_break_l","fieldtype":"Column Break"},
-  {"fieldname":"odometer_reading","fieldtype":"Int","label":"Odometer (km)"},
-  {"fieldname":"full_tank","fieldtype":"Check","label":"Full Tank","default":1},
-  {"fieldname":"fuel_section","fieldtype":"Section Break","label":"Fuel Details"},
-  {"fieldname":"liters","fieldtype":"Float","in_list_view":1,"label":"Liters","reqd":1,"non_negative":1},
-  {"fieldname":"rate_per_liter","fieldtype":"Currency","in_list_view":1,"label":"Rate per Liter","reqd":1},
-  {"fieldname":"total_amount","fieldtype":"Currency","in_list_view":1,"label":"Total Amount","read_only":1,"bold":1},
-  {"fieldname":"column_break_f","fieldtype":"Column Break"},
-  {"fieldname":"payment_mode","fieldtype":"Select","label":"Payment Mode","options":"Cash\nCard\nCredit\nFuel Card","default":"Cash"},
-  {"fieldname":"receipt_attachment","fieldtype":"Attach","label":"Receipt"},
-  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Fuel Log","print_hide":1,"read_only":1}
+ "actions": [],
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "DocType",
+ "field_order": [
+  "naming_series",
+  "company",
+  "cb0",
+  "fuel_date",
+  "vehicle",
+  "link_section",
+  "freight_trip",
+  "fuel_station",
+  "supplier",
+  "cb1",
+  "odometer_reading",
+  "full_tank",
+  "fuel_section",
+  "liters",
+  "rate_per_liter",
+  "total_amount",
+  "cb2",
+  "payment_mode",
+  "receipt_attachment",
+  "amended_from"
  ],
- "index_web_pages_for_search":1,"is_submittable":1,"links":[],
- "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Fuel Log","naming_rule":"By \"Naming Series\" field","owner":"Administrator",
- "permissions":[{"amend":1,"cancel":1,"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"submit":1,"write":1}],
- "search_fields":"vehicle,fuel_date","sort_field":"fuel_date","sort_order":"DESC","states":[],"track_changes":1
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "FL-.YYYY.-.#####",
+   "default": "FL-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb0",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "fuel_date",
+   "fieldtype": "Date",
+   "label": "Fuel Date",
+   "in_list_view": 1,
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1,
+   "options": "Transport Vehicle"
+  },
+  {
+   "fieldname": "link_section",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "fieldname": "freight_trip",
+   "fieldtype": "Link",
+   "label": "Freight Trip",
+   "options": "Freight Trip"
+  },
+  {
+   "fieldname": "fuel_station",
+   "fieldtype": "Data",
+   "label": "Fuel Station"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "odometer_reading",
+   "fieldtype": "Int",
+   "label": "Odometer (km)"
+  },
+  {
+   "fieldname": "full_tank",
+   "fieldtype": "Check",
+   "label": "Full Tank",
+   "default": 1
+  },
+  {
+   "fieldname": "fuel_section",
+   "fieldtype": "Section Break",
+   "label": "Fuel Details"
+  },
+  {
+   "fieldname": "liters",
+   "fieldtype": "Float",
+   "label": "Liters",
+   "in_list_view": 1,
+   "reqd": 1,
+   "non_negative": 1
+  },
+  {
+   "fieldname": "rate_per_liter",
+   "fieldtype": "Currency",
+   "label": "Rate per Liter",
+   "in_list_view": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "in_list_view": 1,
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "Cash\nCard\nCredit\nFuel Card",
+   "default": "Cash"
+  },
+  {
+   "fieldname": "receipt_attachment",
+   "fieldtype": "Attach",
+   "label": "Receipt"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "options": "Fuel Log"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "Fuel Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "fuel_date",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "is_submittable": 1,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "search_fields": "vehicle,fuel_date"
 }

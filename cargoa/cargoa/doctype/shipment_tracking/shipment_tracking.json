@@ -1,36 +1,234 @@
 {
- "actions": [], "autoname": "naming_series:",
- "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
- "field_order": ["naming_series","company","column_break_0","timestamp","status","links_section","freight_trip","waybill","customer","column_break_l","hub","odometer_km","location_section","location","latitude","column_break_loc","longitude","eta","details_section","notes","proof_attachment","column_break_d","is_customer_visible","is_latest","amended_from"],
- "fields": [
-  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"TRK-.YYYY.-.#####","default":"TRK-.YYYY.-.#####","reqd":1,"set_only_once":1},
-  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
-  {"fieldname":"column_break_0","fieldtype":"Column Break"},
-  {"fieldname":"timestamp","fieldtype":"Datetime","in_list_view":1,"label":"Timestamp","reqd":1,"default":"Now"},
-  {"fieldname":"status","fieldtype":"Select","in_list_view":1,"in_standard_filter":1,"label":"Status","options":"Booked\nPicked Up\nDeparted Origin\nIn Transit\nAt Hub\nOut for Delivery\nDelivered\nException\nReturned","reqd":1,"default":"Booked"},
-  {"fieldname":"links_section","fieldtype":"Section Break","label":"Shipment"},
-  {"fieldname":"freight_trip","fieldtype":"Link","in_list_view":1,"in_standard_filter":1,"label":"Freight Trip","options":"Freight Trip","reqd":1},
-  {"fieldname":"waybill","fieldtype":"Link","label":"Waybill","options":"Waybill"},
-  {"fieldname":"customer","fieldtype":"Link","label":"Customer","options":"Customer","read_only":1,"fetch_from":"freight_trip.customer"},
-  {"fieldname":"column_break_l","fieldtype":"Column Break"},
-  {"fieldname":"hub","fieldtype":"Link","label":"Hub","options":"Hub"},
-  {"fieldname":"odometer_km","fieldtype":"Float","label":"Odometer (km)"},
-  {"fieldname":"location_section","fieldtype":"Section Break","label":"Location"},
-  {"fieldname":"location","fieldtype":"Data","label":"Location / City"},
-  {"fieldname":"latitude","fieldtype":"Float","label":"Latitude"},
-  {"fieldname":"column_break_loc","fieldtype":"Column Break"},
-  {"fieldname":"longitude","fieldtype":"Float","label":"Longitude"},
-  {"fieldname":"eta","fieldtype":"Datetime","label":"Estimated Arrival"},
-  {"fieldname":"details_section","fieldtype":"Section Break","label":"Details"},
-  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"},
-  {"fieldname":"proof_attachment","fieldtype":"Attach","label":"Proof Photo / Document"},
-  {"fieldname":"column_break_d","fieldtype":"Column Break"},
-  {"fieldname":"is_customer_visible","fieldtype":"Check","label":"Visible to customer","default":1},
-  {"fieldname":"is_latest","fieldtype":"Check","label":"Is Latest Update","read_only":1,"default":1},
-  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Shipment Tracking","print_hide":1,"read_only":1}
+ "actions": [],
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "DocType",
+ "field_order": [
+  "naming_series",
+  "company",
+  "cb0",
+  "timestamp",
+  "status",
+  "link_section",
+  "freight_trip",
+  "waybill",
+  "customer",
+  "cb1",
+  "hub",
+  "odometer_km",
+  "loc_section",
+  "location",
+  "latitude",
+  "cb2",
+  "longitude",
+  "eta",
+  "notes",
+  "proof_attachment",
+  "cb3",
+  "is_customer_visible",
+  "amended_from"
  ],
- "index_web_pages_for_search":1,"is_submittable":1,"links":[],
- "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Shipment Tracking","naming_rule":"By \"Naming Series\" field","owner":"Administrator",
- "permissions":[{"amend":1,"cancel":1,"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"submit":1,"write":1}],
- "search_fields":"freight_trip,status,customer","sort_field":"timestamp","sort_order":"DESC","states":[{"color":"Grey","title":"Booked"},{"color":"Yellow","title":"Picked Up"},{"color":"Blue","title":"In Transit"},{"color":"Cyan","title":"At Hub"},{"color":"Green","title":"Delivered"},{"color":"Red","title":"Exception"}],"track_changes":1
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "TRK-.YYYY.-.#####",
+   "default": "TRK-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb0",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "Timestamp",
+   "in_list_view": 1,
+   "reqd": 1,
+   "default": "Now"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1,
+   "default": "Booked",
+   "options": "Booked\nPicked Up\nDeparted Origin\nIn Transit\nAt Hub\nOut for Delivery\nDelivered\nException\nReturned"
+  },
+  {
+   "fieldname": "link_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment"
+  },
+  {
+   "fieldname": "freight_trip",
+   "fieldtype": "Link",
+   "label": "Freight Trip",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "options": "Freight Trip",
+   "reqd": 1
+  },
+  {
+   "fieldname": "waybill",
+   "fieldtype": "Link",
+   "label": "Waybill",
+   "options": "Waybill"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1,
+   "fetch_from": "freight_trip.customer"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "hub",
+   "fieldtype": "Link",
+   "label": "Hub",
+   "options": "Hub"
+  },
+  {
+   "fieldname": "odometer_km",
+   "fieldtype": "Float",
+   "label": "Odometer (km)"
+  },
+  {
+   "fieldname": "loc_section",
+   "fieldtype": "Section Break",
+   "label": "Location"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location / City"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude"
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Datetime",
+   "label": "ETA"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "proof_attachment",
+   "fieldtype": "Attach",
+   "label": "Proof Photo"
+  },
+  {
+   "fieldname": "cb3",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "is_customer_visible",
+   "fieldtype": "Check",
+   "label": "Visible to customer",
+   "default": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Shipment Tracking",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "Shipment Tracking",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "timestamp",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Grey",
+   "title": "Booked"
+  },
+  {
+   "color": "Yellow",
+   "title": "Picked Up"
+  },
+  {
+   "color": "Blue",
+   "title": "In Transit"
+  },
+  {
+   "color": "Cyan",
+   "title": "At Hub"
+  },
+  {
+   "color": "Green",
+   "title": "Delivered"
+  },
+  {
+   "color": "Red",
+   "title": "Exception"
+  }
+ ],
+ "track_changes": 1,
+ "is_submittable": 1,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "search_fields": "freight_trip,status,customer"
 }

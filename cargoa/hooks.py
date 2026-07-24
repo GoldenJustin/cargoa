@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Hooks for Cargoa — Logistics Operations Engine.
-"""
-
 app_name = "cargoa"
 app_title = "Cargoa"
 app_publisher = "Cargoa"
@@ -16,14 +12,11 @@ before_install = "cargoa.cargoa.setup.before_install"
 after_install = "cargoa.cargoa.setup.after_install"
 
 doc_events = {
-	"*": {
-		"on_cancel": ["cargoa.cargoa.api.on_voucher_cancel"],
-	},
+    "*": {
+        "on_cancel": ["cargoa.cargoa.api.on_voucher_cancel"],
+    },
 }
 
-# Scheduled tasks (auto-billing, etc.)
 scheduler_events = {
-	"daily": [
-		"cargoa.cargoa.tasks.daily_maintenance",
-	],
+    "daily": ["cargoa.cargoa.tasks.daily_maintenance"],
 }

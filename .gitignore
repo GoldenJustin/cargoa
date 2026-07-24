@@ -1,18 +1,7 @@
-# Byte-compiled / optimized files
 __pycache__/
 *.py[cod]
-*$py.class
-
-# Distribution / packaging
 build/
 dist/
 *.egg-info/
-*.egg
-
-# Virtual environments
 .venv/
-venv/
-
-# Bench / framework caches
-*.pyc
 node_modules/

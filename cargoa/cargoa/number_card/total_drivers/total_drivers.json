@@ -1,1 +1,1 @@
-{"doctype":"Number Card","name":"Total Drivers","label":"Total Drivers","type":"Document Type","document_type":"Driver","function":"Count","color":"#e74c3c","filters_json":"[]","is_public":1,"is_standard":1,"module":"Cargoa","stats_time_series":0}
+{"doctype": "Number Card", "name": "Total Drivers", "label": "Total Drivers", "type": "Document Type", "document_type": "Driver", "function": "Count", "color": "#e74c3c", "is_public": 1, "is_standard": 1, "module": "Cargoa", "stats_time_series": 0, "filters_json": "[]"}

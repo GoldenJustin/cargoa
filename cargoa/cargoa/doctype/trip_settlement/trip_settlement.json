@@ -1,43 +1,270 @@
 {
- "actions": [], "autoname": "naming_series:", "creation": "2026-07-16 00:00:00.000000", "doctype": "DocType",
- "field_order": ["naming_series","company","column_break_top","settlement_date","status","freight_trip","trip_details_section","customer","route","driver","column_break_d","prime_mover","trip_date","profit_margin","revenue_section","total_revenue","sales_invoice","column_break_r","amount_received","customer_balance","cost_section","total_trip_cost","purchase_invoice","column_break_c","amounts_paid_out","outstanding_costs","summary_section","net_profit","column_break_s","net_cash_position","notes_section","notes","amended_from"],
- "fields": [
-  {"fieldname":"naming_series","fieldtype":"Select","hidden":1,"label":"Series","no_copy":1,"options":"SETTLE-.YYYY.-.#####","default":"SETTLE-.YYYY.-.#####","reqd":1,"set_only_once":1},
-  {"fieldname":"company","fieldtype":"Link","label":"Company","options":"Company","reqd":1},
-  {"fieldname":"column_break_top","fieldtype":"Column Break"},
-  {"fieldname":"settlement_date","fieldtype":"Date","label":"Settlement Date","reqd":1,"default":"Today"},
-  {"fieldname":"status","fieldtype":"Select","label":"Status","options":"Draft\nSettled","default":"Draft","reqd":1},
-  {"fieldname":"freight_trip","fieldtype":"Link","in_list_view":1,"label":"Freight Trip","options":"Freight Trip","reqd":1},
-  {"fieldname":"trip_details_section","fieldtype":"Section Break","label":"Trip Summary"},
-  {"fieldname":"customer","fieldtype":"Link","label":"Customer","options":"Customer","read_only":1},
-  {"fieldname":"route","fieldtype":"Link","label":"Freight Route","options":"Freight Route","read_only":1},
-  {"fieldname":"driver","fieldtype":"Link","label":"Driver","options":"Driver","read_only":1},
-  {"fieldname":"column_break_d","fieldtype":"Column Break"},
-  {"fieldname":"prime_mover","fieldtype":"Link","label":"Prime Mover","options":"Transport Vehicle","read_only":1},
-  {"fieldname":"trip_date","fieldtype":"Date","label":"Trip Date","read_only":1},
-  {"fieldname":"profit_margin","fieldtype":"Percent","label":"Trip Profit Margin %","read_only":1},
-  {"fieldname":"revenue_section","fieldtype":"Section Break","label":"Money In (Revenue)"},
-  {"fieldname":"total_revenue","fieldtype":"Currency","label":"Total Revenue (Billed)","read_only":1},
-  {"fieldname":"sales_invoice","fieldtype":"Link","label":"Sales Invoice","options":"Sales Invoice","read_only":1},
-  {"fieldname":"column_break_r","fieldtype":"Column Break"},
-  {"fieldname":"amount_received","fieldtype":"Currency","label":"Amount Actually Received"},
-  {"fieldname":"customer_balance","fieldtype":"Currency","label":"Customer Balance Outstanding","read_only":1,"bold":1},
-  {"fieldname":"cost_section","fieldtype":"Section Break","label":"Money Out (Costs)"},
-  {"fieldname":"total_trip_cost","fieldtype":"Currency","label":"Total Trip Cost","read_only":1},
-  {"fieldname":"purchase_invoice","fieldtype":"Link","label":"Truck Hire Invoice","options":"Purchase Invoice","read_only":1},
-  {"fieldname":"column_break_c","fieldtype":"Column Break"},
-  {"fieldname":"amounts_paid_out","fieldtype":"Currency","label":"Amounts Paid Out"},
-  {"fieldname":"outstanding_costs","fieldtype":"Currency","label":"Costs Still Outstanding","read_only":1,"bold":1},
-  {"fieldname":"summary_section","fieldtype":"Section Break","label":"Reconciliation"},
-  {"fieldname":"net_profit","fieldtype":"Currency","label":"Net Profit (Accrual)","read_only":1,"bold":1},
-  {"fieldname":"column_break_s","fieldtype":"Column Break"},
-  {"fieldname":"net_cash_position","fieldtype":"Currency","label":"Net Cash Position","read_only":1,"bold":1},
-  {"fieldname":"notes_section","fieldtype":"Section Break","label":"Notes"},
-  {"fieldname":"notes","fieldtype":"Small Text","label":"Notes"},
-  {"fieldname":"amended_from","fieldtype":"Link","label":"Amended From","no_copy":1,"options":"Trip Settlement","print_hide":1,"read_only":1}
+ "actions": [],
+ "creation": "2026-07-25 00:00:00.000000",
+ "doctype": "DocType",
+ "field_order": [
+  "naming_series",
+  "company",
+  "cb_top",
+  "settlement_date",
+  "status",
+  "freight_trip",
+  "trip_section",
+  "customer",
+  "route",
+  "driver",
+  "cb_d",
+  "prime_mover",
+  "trip_date",
+  "rev_section",
+  "total_revenue",
+  "sales_invoice",
+  "cb_r",
+  "amount_received",
+  "customer_balance",
+  "cost_section",
+  "total_trip_cost",
+  "purchase_invoice",
+  "cb_c",
+  "amounts_paid_out",
+  "outstanding_costs",
+  "sum_section",
+  "net_profit",
+  "cb_s",
+  "net_cash_position",
+  "notes",
+  "amended_from"
  ],
- "index_web_pages_for_search":1,"is_submittable":1,"links":[],
- "modified":"2026-07-16 00:00:00.000000","modified_by":"Administrator","module":"Cargoa","name":"Trip Settlement","naming_rule":"By \"Naming Series\" field","owner":"Administrator",
- "permissions":[{"amend":1,"cancel":1,"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"submit":1,"write":1}],
- "search_fields":"freight_trip,customer","sort_field":"settlement_date","sort_order":"DESC","states":[],"track_changes":1
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "SETTLE-.YYYY.-.#####",
+   "default": "SETTLE-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_top",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "settlement_date",
+   "fieldtype": "Date",
+   "label": "Settlement Date",
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSettled",
+   "default": "Draft",
+   "reqd": 1
+  },
+  {
+   "fieldname": "freight_trip",
+   "fieldtype": "Link",
+   "label": "Freight Trip",
+   "in_list_view": 1,
+   "reqd": 1,
+   "options": "Freight Trip"
+  },
+  {
+   "fieldname": "trip_section",
+   "fieldtype": "Section Break",
+   "label": "Trip Summary"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "read_only": 1,
+   "options": "Customer"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "label": "Freight Route",
+   "read_only": 1,
+   "options": "Freight Route"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "read_only": 1,
+   "options": "Driver"
+  },
+  {
+   "fieldname": "cb_d",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "prime_mover",
+   "fieldtype": "Link",
+   "label": "Prime Mover",
+   "read_only": 1,
+   "options": "Transport Vehicle"
+  },
+  {
+   "fieldname": "trip_date",
+   "fieldtype": "Date",
+   "label": "Trip Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rev_section",
+   "fieldtype": "Section Break",
+   "label": "Money In"
+  },
+  {
+   "fieldname": "total_revenue",
+   "fieldtype": "Currency",
+   "label": "Total Revenue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "read_only": 1,
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "cb_r",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "amount_received",
+   "fieldtype": "Currency",
+   "label": "Amount Received"
+  },
+  {
+   "fieldname": "customer_balance",
+   "fieldtype": "Currency",
+   "label": "Customer Balance",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cost_section",
+   "fieldtype": "Section Break",
+   "label": "Money Out"
+  },
+  {
+   "fieldname": "total_trip_cost",
+   "fieldtype": "Currency",
+   "label": "Total Trip Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "read_only": 1,
+   "options": "Purchase Invoice"
+  },
+  {
+   "fieldname": "cb_c",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "amounts_paid_out",
+   "fieldtype": "Currency",
+   "label": "Amounts Paid Out"
+  },
+  {
+   "fieldname": "outstanding_costs",
+   "fieldtype": "Currency",
+   "label": "Costs Outstanding",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "sum_section",
+   "fieldtype": "Section Break",
+   "label": "Reconciliation"
+  },
+  {
+   "fieldname": "net_profit",
+   "fieldtype": "Currency",
+   "label": "Net Profit",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cb_s",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "net_cash_position",
+   "fieldtype": "Currency",
+   "label": "Net Cash Position",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "options": "Trip Settlement"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "Trip Settlement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "settlement_date",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "is_submittable": 1,
+ "autoname": "naming_series:",
+ "naming_rule": "By \"Naming Series\" field",
+ "search_fields": "freight_trip,customer"
 }
