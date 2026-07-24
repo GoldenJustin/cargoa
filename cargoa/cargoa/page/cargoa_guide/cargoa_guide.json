@@ -1,5 +1,4 @@
 {
- "content_js": "cargoa.cargoa.page.cargoa_guide.cargoa_guide.render",
  "creation": "2026-07-16 00:00:00.000000",
  "docstatus": 0,
  "doctype": "Page",
@@ -18,9 +17,7 @@
   {"role": "Cargoa Accounts"},
   {"role": "System Manager"}
  ],
- "script": null,
  "standard": "Yes",
- "style": null,
  "system_page": 0,
  "title": "Cargoa Guide"
 }
