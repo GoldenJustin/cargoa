@@ -1,0 +1,1 @@
+{"doctype":"Number Card","name":"Total Profit","label":"Total Profit","type":"Document Type","document_type":"Freight Trip","function":"Sum","report_field":"trip_profit","color":"#2ecc71","filters_json":"[]","is_public":1,"is_standard":1,"module":"Cargoa","stats_time_series":0}

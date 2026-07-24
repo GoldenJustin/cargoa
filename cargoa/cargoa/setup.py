@@ -20,7 +20,7 @@ def before_install():
 
 
 def after_install():
-	for fn in (_roles, _perms, _fields, _items, seed_settings, _number_cards, _dashboard_charts, _notifications):
+	for fn in (_roles, _perms, _fields, _items, seed_settings, _notifications):
 		try:
 			fn()
 		except Exception:

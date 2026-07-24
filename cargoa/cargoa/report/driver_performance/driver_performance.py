@@ -14,11 +14,11 @@ def execute(filters=None):
 		{"label": _("Profit"), "fieldname": "profit", "fieldtype": "Currency", "width": 120},
 		{"label": _("Avg Margin %"), "fieldname": "margin", "fieldtype": "Percent", "width": 100},
 	]
-	conditions = "where docstatus = 1"
+	conditions = "where t.docstatus = 1"
 	if filters.get("from_date"):
-		conditions += " and trip_date >= %(from_date)s"
+		conditions += " and t.trip_date >= %(from_date)s"
 	if filters.get("to_date"):
-		conditions += " and trip_date <= %(to_date)s"
+		conditions += " and t.trip_date <= %(to_date)s"
 
 	rows = frappe.db.sql(f"""
 		select t.driver, d.driver_type, count(*) as trips,

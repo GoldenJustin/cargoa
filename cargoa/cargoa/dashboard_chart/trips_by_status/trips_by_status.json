@@ -1,0 +1,1 @@
+{"doctype":"Dashboard Chart","name":"Trips by Status","chart_name":"Trips by Status","chart_type":"Document","document_type":"Freight Trip","based_on":"trip_status","aggregate_function":"Count","type":"Donut","timeseries":0,"is_public":1,"is_standard":1,"module":"Cargoa"}

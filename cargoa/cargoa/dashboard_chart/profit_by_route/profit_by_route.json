@@ -1,0 +1,1 @@
+{"doctype":"Dashboard Chart","name":"Profit by Route","chart_name":"Profit by Route","chart_type":"Document","document_type":"Freight Trip","based_on":"route","value_based_on":"trip_profit","aggregate_function":"Sum","type":"Bar","timeseries":0,"is_public":1,"is_standard":1,"module":"Cargoa"}
