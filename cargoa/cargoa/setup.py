@@ -20,7 +20,7 @@ def before_install():
 
 
 def after_install():
-	for fn in (_roles, _perms, _fields, _items, seed_settings, _dashboard, _notifications):
+	for fn in (_roles, _perms, _fields, _items, seed_settings, _number_cards, _dashboard_charts, _notifications):
 		try:
 			fn()
 		except Exception:
@@ -160,36 +160,86 @@ def seed_settings():
 
 
 def _dashboard():
-	"""Create the Cargoa KPI dashboard with number cards and charts."""
-	try:
-		if not frappe.db.exists("Dashboard", "Cargoa"):
-			frappe.get_doc({
-				"doctype": "Dashboard",
-				"dashboard_name": "Cargoa",
-				"module": "Cargoa",
-			}).insert(ignore_permissions=True)
-	except Exception:
-		frappe.db.rollback()
+	"""Kept for compatibility — actual widgets created in _number_cards / _dashboard_charts."""
+	pass
 
-	cards = {
-		"Active Trips": {"stats_name": "Freight Trip|trip_status|=,In Transit", "stats_time_series": 0},
-		"Completed Trips (MTD)": {"stats_name": "Freight Trip|trip_status|=,Completed", "stats_time_series": 0},
-		"Total Revenue (MTD)": {"stats_name": "Freight Trip|total_revenue|Sum", "stats_time_series": 0},
-		"Trip Profit (MTD)": {"stats_name": "Freight Trip|trip_profit|Sum", "stats_time_series": 0},
-	}
-	for name, cfg in cards.items():
+
+def _number_cards():
+	"""Create KPI number cards for the workspace."""
+	cards = [
+		{"label": "Active Trips", "doc": "Freight Trip", "func": "Count",
+		 "color": "#3498db", "filters": [["Freight Trip", "trip_status", "=", "In Transit"]]},
+		{"label": "Total Revenue", "doc": "Freight Trip", "func": "Sum",
+		 "color": "#27ae60", "field": "total_revenue"},
+		{"label": "Total Profit", "doc": "Freight Trip", "func": "Sum",
+		 "color": "#2ecc71", "field": "trip_profit"},
+		{"label": "Completed Trips", "doc": "Freight Trip", "func": "Count",
+		 "color": "#9b59b6", "filters": [["Freight Trip", "trip_status", "=", "Completed"]]},
+		{"label": "Total Vehicles", "doc": "Transport Vehicle", "func": "Count",
+		 "color": "#e67e22"},
+		{"label": "Total Drivers", "doc": "Driver", "func": "Count",
+		 "color": "#e74c3c"},
+	]
+	import json
+	for c in cards:
 		try:
-			if not frappe.db.exists("Number Card", name):
-				frappe.get_doc({
-					"doctype": "Number Card",
-					"name": name,
-					"label": name,
-					"document_type": "Freight Trip",
-					"function": cfg["stats_name"].split("|")[-1].split("=")[0].strip() if "Sum" in cfg["stats_name"] or "Count" in cfg["stats_name"] else "Count",
-					"aggregate_function_based_on": "total_revenue" if "Revenue" in name else ("trip_profit" if "Profit" in name else ""),
-					"is_standard": 1,
-					"module": "Cargoa",
-				}).insert(ignore_permissions=True)
+			if not frappe.db.exists("Number Card", c["label"]):
+				doc = frappe.get_doc({
+					"doctype": "Number Card", "name": c["label"], "label": c["label"],
+					"type": "Document Type", "document_type": c["doc"],
+					"function": c["func"], "color": c["color"],
+					"module": "Cargoa", "is_standard": 1, "is_public": 1,
+					"stats_time_series": 0,
+				})
+				if c.get("field"):
+					doc.report_field = c["field"]
+				if c.get("filters"):
+					doc.filters_json = json.dumps(c["filters"])
+				doc.insert(ignore_permissions=True)
+		except Exception:
+			frappe.db.rollback()
+	frappe.db.commit()
+
+
+def _dashboard_charts():
+	"""Create dashboard charts for the workspace."""
+	charts = [
+		# Time-series: revenue trend
+		{"name": "Revenue Trend", "doc": "Freight Trip", "based_on": "trip_date",
+		 "value_field": "total_revenue", "func": "Sum", "chart_type": "Line",
+		 "timeseries": 1, "timespan": "Last Year", "interval": "Monthly"},
+		# Category: trips by status
+		{"name": "Trips by Status", "doc": "Freight Trip", "based_on": "trip_status",
+		 "value_field": None, "func": "Count", "chart_type": "Donut",
+		 "timeseries": 0, "timespan": None, "interval": None},
+		# Category: profit by route
+		{"name": "Profit by Route", "doc": "Freight Trip", "based_on": "route",
+		 "value_field": "trip_profit", "func": "Sum", "chart_type": "Bar",
+		 "timeseries": 0, "timespan": None, "interval": None},
+		# Time-series: fuel cost trend
+		{"name": "Fuel Cost Trend", "doc": "Freight Trip", "based_on": "trip_date",
+		 "value_field": "total_fuel_cost", "func": "Sum", "chart_type": "Line",
+		 "timeseries": 1, "timespan": "Last Year", "interval": "Monthly"},
+	]
+	for c in charts:
+		try:
+			if not frappe.db.exists("Dashboard Chart", c["name"]):
+				doc = frappe.get_doc({
+					"doctype": "Dashboard Chart", "name": c["name"], "chart_name": c["name"],
+					"chart_type": "Document", "document_type": c["doc"],
+					"based_on": c["based_on"], "type": c["chart_type"],
+					"timeseries": c["timeseries"], "module": "Cargoa",
+					"is_public": 1, "is_standard": 1,
+				})
+				if c.get("value_field"):
+					doc.value_based_on = c["value_field"]
+					doc.aggregate_function = c["func"]
+				else:
+					doc.aggregate_function = c["func"]
+				if c.get("timespan"):
+					doc.timespan = c["timespan"]
+					doc.time_interval = c["interval"]
+				doc.insert(ignore_permissions=True)
 		except Exception:
 			frappe.db.rollback()
 	frappe.db.commit()

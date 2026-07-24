@@ -1,0 +1,26 @@
+{
+ "content_js": "cargoa.cargoa.page.cargoa_guide.cargoa_guide.render",
+ "creation": "2026-07-16 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "octicon octicon-checklist",
+ "idx": 0,
+ "modified": "2026-07-16 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Cargoa",
+ "name": "cargoa-guide",
+ "owner": "Administrator",
+ "page_name": "cargoa-guide",
+ "roles": [
+  {"role": "Cargoa Manager"},
+  {"role": "Cargoa User"},
+  {"role": "Cargoa Dispatcher"},
+  {"role": "Cargoa Accounts"},
+  {"role": "System Manager"}
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Cargoa Guide"
+}
